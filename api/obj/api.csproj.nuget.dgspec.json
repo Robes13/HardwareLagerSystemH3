@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\zbc23jkst\\Documents\\GitHub\\HardwareLagerSystemH3\\api\\api.csproj": {}
+    "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\zbc23jkst\\Documents\\GitHub\\HardwareLagerSystemH3\\api\\api.csproj": {
+    "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zbc23jkst\\Documents\\GitHub\\HardwareLagerSystemH3\\api\\api.csproj",
+        "projectUniqueName": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\api.csproj",
         "projectName": "api",
-        "projectPath": "C:\\Users\\zbc23jkst\\Documents\\GitHub\\HardwareLagerSystemH3\\api\\api.csproj",
-        "packagesPath": "C:\\Users\\zbc23jkst\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zbc23jkst\\Documents\\GitHub\\HardwareLagerSystemH3\\api\\obj\\",
+        "projectPath": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\api.csproj",
+        "packagesPath": "C:\\Users\\zbc23rope\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\zbc23jkst\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\zbc23rope\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -44,12 +43,17 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[3.7.2, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.8, )"
@@ -78,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
