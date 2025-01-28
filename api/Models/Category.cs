@@ -13,7 +13,7 @@ namespace api.Models
         public int id { get; set; }
         [Required]
         [Column(TypeName = "nvarchar(25)")]
-        [MaxLength(255, ErrorMessage = "Name is longer then 25 characters")]
+        [MaxLength(25, ErrorMessage = "Name is longer then 25 characters")]
         public string name { get; set; } = string.Empty;
     }
 }
