@@ -1,0 +1,4 @@
+/api/.vs
+*.dll
+/api/bin
+/api/bin/Debug
