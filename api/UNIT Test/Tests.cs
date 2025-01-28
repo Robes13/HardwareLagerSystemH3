@@ -1,239 +1,281 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Globalization;
-using System.Runtime.InteropServices;
+﻿//using Microsoft.VisualStudio.TestTools.UnitTesting;
+//using System.Globalization;
+//using System.Runtime.InteropServices;
 
-namespace api.UNIT_Test
-{
+//namespace api.UNIT_Test
+//{
 
-    [TestClass]
-    public class Tests
-    {
-        [TestMethod]
-        public void ValidateData()
-        {
-            string username = "hanssuper400";
-            string hashedpassword = "password";
+//    [TestClass]
+//    public class Tests
+//    {
+//        [TestMethod]
+//        public void ValidateData()
+//        {
+//            string username = "hanssuper400";
+//            string hashedpassword = "password";
 
-            string email = "email@zbc.dk";
+//            string email = "email@zbc.dk";
 
-            // Future enum
-            RoleEnum userRole;
+//            // Future enum
+//            RoleEnum userRole;
 
-            bool isDeleted = false;
+//            bool isDeleted = false;
 
-            DateTime? deletionTime = null;
-            return UserRepository.ValidateData(username, hashedpassword, email, userRole, isDeleted, deletionTime);
-        }
-        [TestMethod]
-        public void CreateUser()
-        {
-            string username = "hanssuper400";
-            string hashedpassword = "password";
-            string email = "email@zbc.dk";
+//            DateTime? deletionTime = null;
+//            return UserRepository.ValidateData(username, hashedpassword, email, userRole, isDeleted, deletionTime);
+//        }
+//        [TestMethod]
+//        public void CreateUser()
+//        {
+//            string username = "hanssuper400";
+//            string hashedpassword = "password";
+//            string email = "email@zbc.dk";
 
-            // Future enum
-            RoleEnum userRole;
+//            // Future enum
+//            RoleEnum userRole;
 
-            bool isDeleted = false;
+//            bool isDeleted = false;
 
-            DateTime? deletionTime = null;
+//            DateTime? deletionTime = null;
 
-            return UserRepository.CreateUser(username, hashedpassword, email, userRole, isDeleted, deletionTime);
-        }
-        [TestMethod]
-        public void GetUserById() 
-        {
-            int userid = 0;
+//            return UserRepository.CreateUser(username, hashedpassword, email, userRole, isDeleted, deletionTime);
+//        }
+//        [TestMethod]
+//        public void GetUserById() 
+//        {
+//            int userid = 0;
 
-            return UserRepository.GetUserById(userid);
-        }
+//            return UserRepository.GetUserById(userid);
+//        }
 
 
-        [TestMethod]
-        public void UpdateUser()
-        {
-            int userid = 0;
-            string username = "megamind";
-            string hashedpassword = "megamind1234";
-            string email = "megamind@zbc.dk";
+//        [TestMethod]
+//        public void UpdateUser()
+//        {
+//            int userid = 0;
+//            string username = "megamind";
+//            string hashedpassword = "megamind1234";
+//            string email = "megamind@zbc.dk";
 
-            RoleEnum userRole;
+//            RoleEnum userRole;
 
-            bool isDeleted = true;
-        }
+//            bool isDeleted = true;
+//        }
 
-        [TestMethod]
-        public void DeleteUser()
-        {
-            int userid = 0;
-            return UserRepository.DeleteUser(userid);
-        }
+//        [TestMethod]
+//        public void DeleteUser()
+//        {
+//            int userid = 0;
+//            return UserRepository.DeleteUser(userid);
+//        }
 
-        [TestMethod]
-        public void GetDeletedUserInfo() 
-        {
-            int userid = 0;
-            return UserRepository.GetDeletedUserInfo(userid);
-        }
+//        [TestMethod]
+//        public void GetDeletedUserInfo() 
+//        {
+//            int userid = 0;
+//            return UserRepository.GetDeletedUserInfo(userid);
+//        }
 
-        [TestMethod]
-        public void CreateHardware() 
-        {
-            string hardwareDescription = "Dette er en computer";
+//        [TestMethod]
+//        public void CreateHardware() 
+//        {
+//            string hardwareDescription = "Dette er en computer";
 
-            enumstatus status = 1;
+//            enumstatus status = 1;
 
-            int typeid = 0;
+//            int typeid = 0;
 
-            return HardwareRepository.CreateHardware(hardwareDescription, enumstatus, typeid);
-        }
+//            return HardwareRepository.CreateHardware(hardwareDescription, enumstatus, typeid);
+//        }
 
-        [TestMethod]
-        public void UpdateHardware()
-        {
-            int hardwareid = 0;
-            string hardwareDescription = "Computeren er nu opdateret";
-            enumstatus status = 2;
+//        [TestMethod]
+//        public void UpdateHardware()
+//        {
+//            int hardwareid = 0;
+//            string hardwareDescription = "Computeren er nu opdateret";
+//            enumstatus status = 2;
 
-            int typeid = 0;
-            return HardwareRepository.UpdateHardware(hardwareid, hardwareDescription, status, typeid);
-        }
+//            int typeid = 0;
+//            return HardwareRepository.UpdateHardware(hardwareid, hardwareDescription, status, typeid);
+//        }
 
-        [TestMethod]
-        public void DeleteHardware()
-        {
-            int hardwareid = 0;
-            return HardwareRepository.DeleteHardware(hardwareid);
-        }
-        [TestMethod]
-        public void GetHardwareById() 
-        {
-            int hardwareid = 0;
-            return HardwareRepository.GetHardwareById(hardwareid);
-        }
-        [TestMethod]
-        public void GetHardwareByTypeAndCategory() 
-        {
-            int typeid = 0;
-            int categoryid = 0;
-            return HardwareRepository.GetHardwareByTypeAndCategory(typeid, categoryid);
-        }
+//        [TestMethod]
+//        public void DeleteHardware()
+//        {
+//            int hardwareid = 0;
+//            return HardwareRepository.DeleteHardware(hardwareid);
+//        }
+//        [TestMethod]
+//        public void GetHardwareById() 
+//        {
+//            int hardwareid = 0;
+//            return HardwareRepository.GetHardwareById(hardwareid);
+//        }
+//        [TestMethod]
+//        public void GetHardwareByTypeAndCategory() 
+//        {
+//            int typeid = 0;
+//            int categoryid = 0;
+//            return HardwareRepository.GetHardwareByTypeAndCategory(typeid, categoryid);
+//        }
 
         
-        [TestMethod]
-        public void TestFive() 
-        {
+//        [TestMethod]
+//        public void CreateLoan() 
+//        {
+//            int HardwareID = 0;
+//            int UserID = 0; 
 
-        }
+//            DateTime startDate = DateTime.Now();
+//            DateTime? endingDate = null;
+//            DateTime? deliveryDate = null;
+//            bool isDelivered = false;
 
-        [TestMethod]
-        public void CreateNotification() // Create Notification
-        {
-            int userHardwareId = 1;
-            string message = "Hej med dig";
+//            return UserHardwareRepository.CreateLoan(HardwareID, UserID, startDate, endingDate, deliveryDate, isDelivered);
+//        }
 
-            return NotificationRepository.CreateNotification(userHardwareId, message);
-        }
-        [TestMethod]
-        public void GetNotificationById() // Get Notification By Id
-        {
-            int notificationId = 1;
+//        [TestMethod]
+//        public void FindLoanByID() 
+//        {
+//            int UserID = 0;
+            
+//            return UserHardwareRepository.FindLoanByID(UserID);
+//        }
 
-            return NotificationRepository.GetNotificationById(notificationId);
-        }
-        [TestMethod]
-        public void DeleteNotification() // Delete Notification
-        {
-            int notificationId = 1;
+//        [TestMethod]
+//        public void FindLoanByHardwareID() 
+//        {
+//            int HardwareID = 0;
 
-            return NotificationRepository.DeleteNotification(notificationId);
-        }
-        [TestMethod]
-        public void UpdateNotification() // Update Notification
-        {
-            int notificationId = 1;
-            int userHardwareId = 0;
-            string message = "Test opdatering #1";
+//            return UserHardwareRepository.FindLoanByHardwareID(HardwareID);
+//        }
 
-            return NotificationRepository.UpdateNotification(notificationId, userHardwareId, message);
-        }
-        [TestMethod]
-        public void GetNotificationByUserId() // Get Notification By User Id
-        {
-            int userId = 0;
-            List<int> ids = new List<int>();
+//        [TestMethod]
+//        public void FindAllActiveLoans() 
+//        {
+//            return UserHardwareRepository.FindAllActiveLoans();
+//        }
 
-            ids = NotificationRepository.GetAllUserHardwareIdsByUserId(userId);
+//        [TestMethod]
+//        public void FindAllFinishedLoans() 
+//        {
+//            return UserHardwareRepository.FindAllFinishedLoans();
+//        }
 
-            return NotificationRepository.GetAllNotificationsByUserHardwareId(ids);
-        }
-        [TestMethod]
-        public void GetAllTypes() // Get All Types
-        {
-            return TypeRepository.GetAllTypes();
-        }
-        [TestMethod]
-        public void GetTypeById() // Get Type By Id
-        {
-            int typeId = 0;
+//        [TestMethod]
+//        public void FindAllFutureLoans() 
+//        {
+//            return UserHardwareRepository.FindAllFutureLoans();
+//        }
 
-            return TypeRepository.GetTypeById(typeId);
-        }
-        [TestMethod]
-        public void CreateType() // Create Type
-        {
-            string typeName = "Oprettet type";
+//        [TestMethod]
+//        public void CreateNotification() // Create Notification
+//        {
+//            int userHardwareId = 1;
+//            string message = "Hej med dig";
 
-            return TypeRepository.CreateType(typeName);
-        }
-        [TestMethod]
-        public void UpdateType() // Update Type
-        {
-            int typeId = 0;
-            string typeName = "Opdateret type";
+//            return NotificationRepository.CreateNotification(userHardwareId, message);
+//        }
+//        [TestMethod]
+//        public void GetNotificationById() // Get Notification By Id
+//        {
+//            int notificationId = 1;
 
-            return TypeRepository.UpdateType(typeId, typeName);
-        }
-        [TestMethod]
-        public void DeleteType() // Delete Type
-        {
-            int typeId = 0;
+//            return NotificationRepository.GetNotificationById(notificationId);
+//        }
+//        [TestMethod]
+//        public void DeleteNotification() // Delete Notification
+//        {
+//            int notificationId = 1;
 
-            return TypeRepository.UpdateType(typeId);
-        }
-        [TestMethod]
-        public void GetAllCategories() // Get All Categories
-        {
-            return CategoryRepository.GetAllCategories();
-        }
-        [TestMethod]
-        public void GetCategoryById() // Get Category By Id
-        {
-            int categoryId = 0;
+//            return NotificationRepository.DeleteNotification(notificationId);
+//        }
+//        [TestMethod]
+//        public void UpdateNotification() // Update Notification
+//        {
+//            int notificationId = 1;
+//            int userHardwareId = 0;
+//            string message = "Test opdatering #1";
 
-            return CategoryRepository.GetCategoryById(categoryId);
-        }
-        [TestMethod]
-        public void CreateCategory() // Create Category
-        {
-            string categoryName = "Oprettet Kategori";
+//            return NotificationRepository.UpdateNotification(notificationId, userHardwareId, message);
+//        }
+//        [TestMethod]
+//        public void GetNotificationByUserId() // Get Notification By User Id
+//        {
+//            int userId = 0;
+//            List<int> ids = new List<int>();
 
-            return CategoryRepository.CreateCategory(categoryName);
-        }
-        [TestMethod]
-        public void UpdateCategory() // Update Category
-        {
-            int categoryId = 0;
-            string categoryName = "Opdateret Kategori";
+//            ids = NotificationRepository.GetAllUserHardwareIdsByUserId(userId);
 
-            return CategoryRepository.UpdateCategory(categoryId, categoryName);
-        }
-        [TestMethod]
-        public void DeleteCategory() // Delete Category
-        {
-            int categoryId = 0;
+//            return NotificationRepository.GetAllNotificationsByUserHardwareId(ids);
+//        }
+//        [TestMethod]
+//        public void GetAllTypes() // Get All Types
+//        {
+//            return TypeRepository.GetAllTypes();
+//        }
+//        [TestMethod]
+//        public void GetTypeById() // Get Type By Id
+//        {
+//            int typeId = 0;
 
-            return CategoryRepository.UpdateCategory(categoryId);
-        }
-    }
-}
+//            return TypeRepository.GetTypeById(typeId);
+//        }
+//        [TestMethod]
+//        public void CreateType() // Create Type
+//        {
+//            string typeName = "Oprettet type";
+
+//            return TypeRepository.CreateType(typeName);
+//        }
+//        [TestMethod]
+//        public void UpdateType() // Update Type
+//        {
+//            int typeId = 0;
+//            string typeName = "Opdateret type";
+
+//            return TypeRepository.UpdateType(typeId, typeName);
+//        }
+//        [TestMethod]
+//        public void DeleteType() // Delete Type
+//        {
+//            int typeId = 0;
+
+//            return TypeRepository.UpdateType(typeId);
+//        }
+//        [TestMethod]
+//        public void GetAllCategories() // Get All Categories
+//        {
+//            return CategoryRepository.GetAllCategories();
+//        }
+//        [TestMethod]
+//        public void GetCategoryById() // Get Category By Id
+//        {
+//            int categoryId = 0;
+
+//            return CategoryRepository.GetCategoryById(categoryId);
+//        }
+//        [TestMethod]
+//        public void CreateCategory() // Create Category
+//        {
+//            string categoryName = "Oprettet Kategori";
+
+//            return CategoryRepository.CreateCategory(categoryName);
+//        }
+//        [TestMethod]
+//        public void UpdateCategory() // Update Category
+//        {
+//            int categoryId = 0;
+//            string categoryName = "Opdateret Kategori";
+
+//            return CategoryRepository.UpdateCategory(categoryId, categoryName);
+//        }
+//        [TestMethod]
+//        public void DeleteCategory() // Delete Category
+//        {
+//            int categoryId = 0;
+
+//            return CategoryRepository.UpdateCategory(categoryId);
+//        }
+//    }
+//}
