@@ -5,6 +5,8 @@
 //namespace api.UNIT_Test
 //{
 
+
+// din mor
 //    [TestClass]
 //    public class Tests
 //    {
@@ -41,7 +43,7 @@
 //            return UserRepository.CreateUser(username, hashedpassword, email, userRole, isDeleted, deletionTime);
 //        }
 //        [TestMethod]
-//        public void GetUserById() 
+//        public void GetUserById()
 //        {
 //            int userid = 0;
 
@@ -70,14 +72,14 @@
 //        }
 
 //        [TestMethod]
-//        public void GetDeletedUserInfo() 
+//        public void GetDeletedUserInfo()
 //        {
 //            int userid = 0;
 //            return UserRepository.GetDeletedUserInfo(userid);
 //        }
 
 //        [TestMethod]
-//        public void CreateHardware() 
+//        public void CreateHardware()
 //        {
 //            string hardwareDescription = "Dette er en computer";
 
@@ -106,25 +108,25 @@
 //            return HardwareRepository.DeleteHardware(hardwareid);
 //        }
 //        [TestMethod]
-//        public void GetHardwareById() 
+//        public void GetHardwareById()
 //        {
 //            int hardwareid = 0;
 //            return HardwareRepository.GetHardwareById(hardwareid);
 //        }
 //        [TestMethod]
-//        public void GetHardwareByTypeAndCategory() 
+//        public void GetHardwareByTypeAndCategory()
 //        {
 //            int typeid = 0;
 //            int categoryid = 0;
 //            return HardwareRepository.GetHardwareByTypeAndCategory(typeid, categoryid);
 //        }
 
-        
+
 //        [TestMethod]
-//        public void CreateLoan() 
+//        public void CreateLoan()
 //        {
 //            int HardwareID = 0;
-//            int UserID = 0; 
+//            int UserID = 0;
 
 //            DateTime startDate = DateTime.Now();
 //            DateTime? endingDate = null;
@@ -135,15 +137,15 @@
 //        }
 
 //        [TestMethod]
-//        public void FindLoanByID() 
+//        public void FindLoanByID()
 //        {
 //            int UserID = 0;
-            
+
 //            return UserHardwareRepository.FindLoanByID(UserID);
 //        }
 
 //        [TestMethod]
-//        public void FindLoanByHardwareID() 
+//        public void FindLoanByHardwareID()
 //        {
 //            int HardwareID = 0;
 
@@ -151,19 +153,19 @@
 //        }
 
 //        [TestMethod]
-//        public void FindAllActiveLoans() 
+//        public void FindAllActiveLoans()
 //        {
 //            return UserHardwareRepository.FindAllActiveLoans();
 //        }
 
 //        [TestMethod]
-//        public void FindAllFinishedLoans() 
+//        public void FindAllFinishedLoans()
 //        {
 //            return UserHardwareRepository.FindAllFinishedLoans();
 //        }
 
 //        [TestMethod]
-//        public void FindAllFutureLoans() 
+//        public void FindAllFutureLoans()
 //        {
 //            return UserHardwareRepository.FindAllFutureLoans();
 //        }
