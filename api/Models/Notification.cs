@@ -10,6 +10,7 @@ namespace api.Models
     public class Notification
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
         [Required]
@@ -18,6 +19,6 @@ namespace api.Models
         [Required]
         [Column(TypeName = "nvarchar(255)")]
         [MaxLength(255, ErrorMessage = "Message is longer than 255 characters")]
-        public string message { get; set; } = null!;
+        public string message { get; set; } = string.Empty;
     }
 }

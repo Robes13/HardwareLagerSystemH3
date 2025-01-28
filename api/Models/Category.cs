@@ -10,6 +10,7 @@ namespace api.Models
     public class Category
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
         [Required]
         [Column(TypeName = "nvarchar(25)")]

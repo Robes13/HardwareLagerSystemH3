@@ -1,4 +1,3 @@
-using api.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,6 +10,7 @@ namespace api.Models
     public class Hardware
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
         [Required]
@@ -19,7 +19,8 @@ namespace api.Models
         public string name { get; set; } = string.Empty;
 
         [Required]
-        public HardwareStatus status { get; set; }
+        public int hardwarestatusid { get; set; }
+        public HardwareStatus hardwarestatus = null!;
 
         [Required]
         public int typeid { get; set; }

@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
-using api.Models.Enums;
 using Microsoft.AspNetCore.Identity;
 
 namespace api.Models
@@ -12,6 +11,7 @@ namespace api.Models
     public class User
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
         [Required]
@@ -32,8 +32,10 @@ namespace api.Models
         [MaxLength(100, ErrorMessage = "Fullname is longer then 50 characters")]
         public string fullname { get; set; } = string.Empty;
 
-        public Role role { get; set; }
+        [Required]
+        public int roleid { get; set; }
 
+        public Role Role { get; set; } = null!;
         public bool isdeleted = false;
 
         public DateTime? datedeleted = null;

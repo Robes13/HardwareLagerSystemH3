@@ -3,12 +3,48 @@
   "WorkspaceRootPath": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|c:\\users\\zbc23rope\\desktop\\hardwarelager repo\\hardwarelagersystemh3\\api\\unit test\\tests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|solutionrelative:unit test\\tests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|c:\\users\\zbc23rope\\desktop\\hardwarelager repo\\hardwarelagersystemh3\\api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|c:\\users\\zbc23rope\\desktop\\hardwarelager repo\\hardwarelagersystemh3\\api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|c:\\users\\zbc23rope\\desktop\\hardwarelager repo\\hardwarelagersystemh3\\api\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|solutionrelative:data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|c:\\users\\zbc23rope\\desktop\\hardwarelager repo\\hardwarelagersystemh3\\api\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|solutionrelative:models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|c:\\users\\zbc23rope\\desktop\\hardwarelager repo\\hardwarelagersystemh3\\api\\models\\hardware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|solutionrelative:models\\hardware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|c:\\users\\zbc23rope\\desktop\\hardwarelager repo\\hardwarelagersystemh3\\api\\models\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|solutionrelative:models\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|c:\\users\\zbc23rope\\desktop\\hardwarelager repo\\hardwarelagersystemh3\\api\\models\\type.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|solutionrelative:models\\type.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|c:\\users\\zbc23rope\\desktop\\hardwarelager repo\\hardwarelagersystemh3\\api\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|c:\\users\\zbc23rope\\desktop\\hardwarelager repo\\hardwarelagersystemh3\\api\\models\\userhardware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|solutionrelative:models\\userhardware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|c:\\users\\zbc23rope\\desktop\\hardwarelager repo\\hardwarelagersystemh3\\api\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|solutionrelative:repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|c:\\users\\zbc23rope\\desktop\\hardwarelager repo\\hardwarelagersystemh3\\api\\unit test\\tests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|solutionrelative:unit test\\tests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{77F41CBB-A9D2-4D7E-9931-3CACF67D2B89}|api.csproj|c:\\users\\zbc23rope\\desktop\\hardwarelager repo\\hardwarelagersystemh3\\api\\api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
@@ -22,34 +58,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Tests.cs",
-              "DocumentMoniker": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\UNIT Test\\Tests.cs",
-              "RelativeDocumentMoniker": "UNIT Test\\Tests.cs",
-              "ToolTip": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\UNIT Test\\Tests.cs",
-              "RelativeToolTip": "UNIT Test\\Tests.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAUwBoAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-27T13:42:57.558Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "api",
-              "DocumentMoniker": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\api.csproj",
-              "RelativeDocumentMoniker": "api.csproj",
-              "ToolTip": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\api.csproj",
-              "RelativeToolTip": "api.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-01-27T13:42:06.737Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"
@@ -60,16 +70,158 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\appsettings.json*",
+              "RelativeToolTip": "appsettings.json*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-01-28T10:05:06.399Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\Data\\AppDbContext.cs*",
+              "RelativeToolTip": "Data\\AppDbContext.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-28T10:02:02.557Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Models\\User.cs",
+              "ToolTip": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\Models\\User.cs",
+              "RelativeToolTip": "Models\\User.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAQwCkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-28T09:51:54.424Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "UserHardware.cs",
+              "DocumentMoniker": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\Models\\UserHardware.cs",
+              "RelativeDocumentMoniker": "Models\\UserHardware.cs",
+              "ToolTip": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\Models\\UserHardware.cs*",
+              "RelativeToolTip": "Models\\UserHardware.cs*",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAuwBwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-28T09:48:04.418Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Notification.cs",
+              "DocumentMoniker": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\Models\\Notification.cs",
+              "RelativeDocumentMoniker": "Models\\Notification.cs",
+              "ToolTip": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\Models\\Notification.cs*",
+              "RelativeToolTip": "Models\\Notification.cs*",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAQwBcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-28T09:47:53.498Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Type.cs",
+              "DocumentMoniker": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\Models\\Type.cs",
+              "RelativeDocumentMoniker": "Models\\Type.cs",
+              "ToolTip": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\Models\\Type.cs*",
+              "RelativeToolTip": "Models\\Type.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-28T08:56:07.403Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Hardware.cs",
+              "DocumentMoniker": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\Models\\Hardware.cs",
+              "RelativeDocumentMoniker": "Models\\Hardware.cs",
+              "ToolTip": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\Models\\Hardware.cs",
+              "RelativeToolTip": "Models\\Hardware.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAABwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-28T08:47:39.806Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Category.cs",
+              "DocumentMoniker": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\Models\\Category.cs",
+              "RelativeDocumentMoniker": "Models\\Category.cs",
+              "ToolTip": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\Models\\Category.cs*",
+              "RelativeToolTip": "Models\\Category.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-28T08:45:48.459Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\Program.cs*",
+              "RelativeToolTip": "Program.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-27T13:41:32.975Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "UserRepository.cs",
+              "DocumentMoniker": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\Repositories\\UserRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\UserRepository.cs",
+              "ToolTip": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\Repositories\\UserRepository.cs",
+              "RelativeToolTip": "Repositories\\UserRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-28T10:00:21.8Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Tests.cs",
+              "DocumentMoniker": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\UNIT Test\\Tests.cs",
+              "RelativeDocumentMoniker": "UNIT Test\\Tests.cs",
+              "ToolTip": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\UNIT Test\\Tests.cs",
+              "RelativeToolTip": "UNIT Test\\Tests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-27T13:42:57.558Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "api.csproj",
+              "DocumentMoniker": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\api.csproj",
+              "RelativeDocumentMoniker": "api.csproj",
+              "ToolTip": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\api.csproj",
+              "RelativeToolTip": "api.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-01-27T13:42:06.737Z"
             }
           ]
         }
