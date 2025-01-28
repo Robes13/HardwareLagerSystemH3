@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Globalization;
+using System.Runtime.InteropServices;
 
 namespace api.UNIT_Test
 {
@@ -40,18 +41,85 @@ namespace api.UNIT_Test
             return UserRepository.CreateUser(username, hashedpassword, email, userRole, isDeleted, deletionTime);
         }
         [TestMethod]
-        public void TestThree() 
+        public void GetUserById() 
         {
-            
+            int userid = 0;
+
+            return UserRepository.GetUserById(userid);
         }
 
 
         [TestMethod]
-        public void TestFour()
+        public void UpdateUser()
         {
+            int userid = 0;
+            string username = "megamind";
+            string hashedpassword = "megamind1234";
+            string email = "megamind@zbc.dk";
 
+            RoleEnum userRole;
+
+            bool isDeleted = true;
         }
 
+        [TestMethod]
+        public void DeleteUser()
+        {
+            int userid = 0;
+            return UserRepository.DeleteUser(userid);
+        }
+
+        [TestMethod]
+        public void GetDeletedUserInfo() 
+        {
+            int userid = 0;
+            return UserRepository.GetDeletedUserInfo(userid);
+        }
+
+        [TestMethod]
+        public void CreateHardware() 
+        {
+            string hardwareDescription = "Dette er en computer";
+
+            enumstatus status = 1;
+
+            int typeid = 0;
+
+            return HardwareRepository.CreateHardware(hardwareDescription, enumstatus, typeid);
+        }
+
+        [TestMethod]
+        public void UpdateHardware()
+        {
+            int hardwareid = 0;
+            string hardwareDescription = "Computeren er nu opdateret";
+            enumstatus status = 2;
+
+            int typeid = 0;
+            return HardwareRepository.UpdateHardware(hardwareid, hardwareDescription, status, typeid);
+        }
+
+        [TestMethod]
+        public void DeleteHardware()
+        {
+            int hardwareid = 0;
+            return HardwareRepository.DeleteHardware(hardwareid);
+        }
+        [TestMethod]
+        public void GetHardwareById() 
+        {
+            int hardwareid = 0;
+            return HardwareRepository.GetHardwareById(hardwareid);
+        }
+        [TestMethod]
+        public void GetHardwareByTypeAndCategory() 
+        {
+            int typeid = 0;
+            int categoryid = 0;
+            return HardwareRepository.GetHardwareByTypeAndCategory(typeid, categoryid);
+        }
+
+        
         [TestMethod]
         public void TestFive() 
         {
