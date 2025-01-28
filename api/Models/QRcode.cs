@@ -13,6 +13,6 @@ namespace api.Models
         public int id { get; set; }
 
         [Required]
-        public int userHardwareId { get; set; }
+        public int userhardwareid { get; set; }
     }
 }
