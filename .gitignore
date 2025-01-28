@@ -1,5 +1,3 @@
-/api/.vs
-*.dll
 /api/bin
 /api/bin/Debug
 /api/obj/Debug
