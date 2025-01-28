@@ -7,6 +7,7 @@ namespace api.Data
     {
         public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options)
         {
+
         }
 
         public DbSet<User> User { get; set; } = null!;
