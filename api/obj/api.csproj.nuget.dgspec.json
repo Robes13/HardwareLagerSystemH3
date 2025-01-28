@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\zbc23mods\\Documents\\GitHub\\HardwareLagerSystemH3\\api\\api.csproj": {}
+    "C:\\Users\\zbc23jkst\\Documents\\GitHub\\HardwareLagerSystemH3\\api\\api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\zbc23mods\\Documents\\GitHub\\HardwareLagerSystemH3\\api\\api.csproj": {
+    "C:\\Users\\zbc23jkst\\Documents\\GitHub\\HardwareLagerSystemH3\\api\\api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zbc23mods\\Documents\\GitHub\\HardwareLagerSystemH3\\api\\api.csproj",
+        "projectUniqueName": "C:\\Users\\zbc23jkst\\Documents\\GitHub\\HardwareLagerSystemH3\\api\\api.csproj",
         "projectName": "api",
-        "projectPath": "C:\\Users\\zbc23mods\\Documents\\GitHub\\HardwareLagerSystemH3\\api\\api.csproj",
-        "packagesPath": "C:\\Users\\zbc23mods\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zbc23mods\\Documents\\GitHub\\HardwareLagerSystemH3\\api\\obj\\",
+        "projectPath": "C:\\Users\\zbc23jkst\\Documents\\GitHub\\HardwareLagerSystemH3\\api\\api.csproj",
+        "packagesPath": "C:\\Users\\zbc23jkst\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\zbc23jkst\\Documents\\GitHub\\HardwareLagerSystemH3\\api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\zbc23mods\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\zbc23jkst\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -44,8 +44,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -58,6 +57,10 @@
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.1, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -83,7 +86,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
