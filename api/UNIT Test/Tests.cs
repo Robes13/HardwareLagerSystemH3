@@ -121,9 +121,51 @@ namespace api.UNIT_Test
 
         
         [TestMethod]
-        public void TestFive() 
+        public void CreateLoan() 
         {
+            int HardwareID = 0;
+            int UserID = 0; 
 
+            DateTime startDate = DateTime.Now();
+            DateTime? endingDate = null;
+            DateTime? deliveryDate = null;
+            bool isDelivered = false;
+
+            return UserHardwareRepository.CreateLoan(HardwareID, UserID, startDate, endingDate, deliveryDate, isDelivered);
+        }
+
+        [TestMethod]
+        public void FindLoanByID() 
+        {
+            int UserID = 0;
+            
+            return UserHardwareRepository.FindLoanByID(UserID);
+        }
+
+        [TestMethod]
+        public void FindLoanByHardwareID() 
+        {
+            int HardwareID = 0;
+
+            return UserHardwareRepository.FindLoanByHardwareID(HardwareID);
+        }
+
+        [TestMethod]
+        public void FindAllActiveLoans() 
+        {
+            return UserHardwareRepository.FindAllActiveLoans();
+        }
+
+        [TestMethod]
+        public void FindAllFinishedLoans() 
+        {
+            return UserHardwareRepository.FindAllFinishedLoans();
+        }
+
+        [TestMethod]
+        public void FindAllFutureLoans() 
+        {
+            return UserHardwareRepository.FindAllFutureLoans();
         }
     }
 }
