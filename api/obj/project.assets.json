@@ -4250,39 +4250,23 @@
     ]
   },
   "packageFolders": {
-<<<<<<< HEAD
     "C:\\Users\\zbc23rope\\.nuget\\packages\\": {},
-=======
-    "C:\\Users\\zbc23mods\\.nuget\\packages\\": {},
->>>>>>> 5da056fa71318b530b15a8431e524d1ff6bc6ff4
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\api.csproj",
       "projectName": "api",
       "projectPath": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\api.csproj",
       "packagesPath": "C:\\Users\\zbc23rope\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\zbc23rope\\Desktop\\HardwareLager Repo\\HardwareLagerSystemH3\\api\\obj\\",
-=======
-      "projectUniqueName": "C:\\Users\\zbc23mods\\Documents\\GitHub\\HardwareLagerSystemH3\\api\\api.csproj",
-      "projectName": "api",
-      "projectPath": "C:\\Users\\zbc23mods\\Documents\\GitHub\\HardwareLagerSystemH3\\api\\api.csproj",
-      "packagesPath": "C:\\Users\\zbc23mods\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\zbc23mods\\Documents\\GitHub\\HardwareLagerSystemH3\\api\\obj\\",
->>>>>>> 5da056fa71318b530b15a8431e524d1ff6bc6ff4
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-<<<<<<< HEAD
         "C:\\Users\\zbc23rope\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-        "C:\\Users\\zbc23mods\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> 5da056fa71318b530b15a8431e524d1ff6bc6ff4
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4361,11 +4345,7 @@
             "privateAssets": "all"
           }
         },
-<<<<<<< HEAD
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
-=======
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
->>>>>>> 5da056fa71318b530b15a8431e524d1ff6bc6ff4
       }
     }
   }
