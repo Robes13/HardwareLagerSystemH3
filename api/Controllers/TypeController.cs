@@ -37,8 +37,8 @@ namespace api.Controllers
             return Ok(typeDto);
         }
 
-        [HttpGet("{id:int}")]
-        [Route("GetByIdTypes")]
+        [HttpGet]
+        [Route("GetByIdTypes/{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             if (!ModelState.IsValid)

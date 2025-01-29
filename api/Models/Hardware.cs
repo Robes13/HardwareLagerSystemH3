@@ -24,6 +24,6 @@ namespace api.Models
 
         [Required]
         public int typeid { get; set; }
-        public Type type { get; set; } = null!;
+        public Types type { get; set; } = null!;
     }
 }
