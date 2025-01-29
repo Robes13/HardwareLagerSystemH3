@@ -1,6 +1,13 @@
 using api.Data;
 using MySql.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using api.Interfaces;
+using api.Controllers;
+using api.Repositories;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc;
+using api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +16,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApiDbContext>(options =>
     options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
 #pragma warning restore CS8604
-builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddScoped<IRole, RoleRepository>();
+builder.Services.AddScoped<IUser, UserRepository>();
+
+builder.Services.AddControllers().AddNewtonsoftJson(Options =>
+{
+    Options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+});builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers();

@@ -7,7 +7,6 @@ namespace api.Data
     {
         public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options)
         {
-
         }
 
         public DbSet<User> User { get; set; } = null!;
@@ -17,18 +16,11 @@ namespace api.Data
         public DbSet<HardwareCategory> HardwareCategory { get; set; } = null!;
         public DbSet<Models.Type> Types { get; set; } = null!;
         public DbSet<HardwareStatus> HardwareStatus { get; set; } = null!;
-        public DbSet<Role> Role {  get; set; } = null!;
-
+        public DbSet<Role> Role { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Existing relationships
-
-            modelBuilder.Entity<HardwareCategory>()
-                .HasOne(hc => hc.user)
-                .WithMany()
-                .HasForeignKey(hc => hc.userid)
-                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<HardwareCategory>()
                 .HasOne(hc => hc.hardware)
@@ -57,12 +49,18 @@ namespace api.Data
 
             // Convert enums if needed
             modelBuilder.Entity<User>()
-                .Property(u => u.roleid)
-                .HasConversion<int>();
+            .HasOne(u => u.Role)  // Each User has one Role
+            .WithMany(r => r.users) // Each Role has many Users
+            .HasForeignKey(u => u.roleid);  // Foreign key from User to Role
 
             modelBuilder.Entity<Hardware>()
                 .Property(h => h.hardwarestatusid)
                 .HasConversion<int>();
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.datedeleted)
+                .HasColumnType("DATETIME")
+                .IsRequired(false);
 
             // Table configurations
             modelBuilder.Entity<User>().ToTable("User");
@@ -74,6 +72,5 @@ namespace api.Data
 
             base.OnModelCreating(modelBuilder);
         }
-
     }
 }

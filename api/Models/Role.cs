@@ -12,5 +12,8 @@ namespace api.Models
         [Column(TypeName = "nvarchar(15)")]
         [MaxLength(15, ErrorMessage = "Name is longer then 15 characters")]
         public string name { get; set; } = string.Empty;
+
+        public ICollection<User> users { get; set; } = new List<User>();
+
     }
 }
