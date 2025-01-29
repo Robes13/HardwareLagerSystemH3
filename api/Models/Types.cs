@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace api.Models
 {
-    public class Type
+    public class Types
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

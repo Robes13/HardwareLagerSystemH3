@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DTOs.HardwareDTOs
+namespace api.DTOs.HardwareDTOs
 {
-    public class HardwareCreateDTO
+    public class HardwareUpdateDTO
     {
         [Required]
-        [MaxLength(255, ErrorMessage = "Name is longer then 255 characters")]
+        [MaxLength(255, ErrorMessage = "Description is longer then 255 characters")]
         public string name { get; set; } = string.Empty;
 
         [Required]
