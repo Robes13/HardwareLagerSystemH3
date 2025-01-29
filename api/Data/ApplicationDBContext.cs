@@ -7,7 +7,6 @@ namespace api.Data
     {
         public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options)
         {
-
         }
 
         public DbSet<User> User { get; set; } = null!;
@@ -17,13 +16,11 @@ namespace api.Data
         public DbSet<HardwareCategory> HardwareCategory { get; set; } = null!;
         public DbSet<Models.Type> Types { get; set; } = null!;
         public DbSet<HardwareStatus> HardwareStatus { get; set; } = null!;
-        public DbSet<Role> Role {  get; set; } = null!;
-
+        public DbSet<Role> Role { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Existing relationships
-
+            // Configure HardwareCategory relationships
             modelBuilder.Entity<HardwareCategory>()
                 .HasOne(hc => hc.user)
                 .WithMany()
@@ -42,20 +39,27 @@ namespace api.Data
                 .HasForeignKey(hc => hc.categoryid)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            // Configure Hardware relationships
             modelBuilder.Entity<Hardware>()
                 .HasOne(h => h.type)
                 .WithMany()
                 .HasForeignKey(h => h.typeid)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Add the foreign key relationship between Hardware and HardwareStatus
             modelBuilder.Entity<Hardware>()
-                .HasOne(h => h.hardwarestatus)  // Reference the HardwareStatus navigation property
-                .WithMany()  // You can change this if HardwareStatus has a collection of Hardware, but here it's assumed there isn't.
-                .HasForeignKey(h => h.hardwarestatusid)  // The foreign key property in Hardware model
-                .OnDelete(DeleteBehavior.Cascade); // Define the delete behavior (optional)
+                .HasOne(h => h.hardwarestatus)
+                .WithMany()
+                .HasForeignKey(h => h.hardwarestatusid)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            // Convert enums if needed
+            // Configure User -> Role relationship
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Role) // Navigation property in User
+                .WithMany(r => r.users) // Navigation property in Role
+                .HasForeignKey(u => u.roleid) // Foreign key in User
+                .OnDelete(DeleteBehavior.Restrict); // Prevent cascade deletion
+
+            // Convert enums or specific properties if needed
             modelBuilder.Entity<User>()
                 .Property(u => u.roleid)
                 .HasConversion<int>();
@@ -63,9 +67,15 @@ namespace api.Data
             modelBuilder.Entity<Hardware>()
                 .Property(h => h.hardwarestatusid)
                 .HasConversion<int>();
+            modelBuilder.Entity<User>()
+                .Property(u => u.datedeleted)
+                .HasColumnType("DATETIME")
+                .IsRequired(false);
+
 
             // Table configurations
             modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<Role>().ToTable("Role");
             modelBuilder.Entity<Hardware>().ToTable("Hardware");
             modelBuilder.Entity<Notification>().ToTable("Notification");
             modelBuilder.Entity<Category>().ToTable("Category");
@@ -74,6 +84,5 @@ namespace api.Data
 
             base.OnModelCreating(modelBuilder);
         }
-
     }
 }
