@@ -15,11 +15,9 @@ namespace api.Data
         public DbSet<Notification> Notification { get; set; } = null!;
         public DbSet<Category> Category { get; set; } = null!;
         public DbSet<HardwareCategory> HardwareCategory { get; set; } = null!;
-        public DbSet<Models.Type> Types { get; set; } = null!;
+        public DbSet<Types> Types { get; set; } = null!;
         public DbSet<HardwareStatus> HardwareStatus { get; set; } = null!;
         public DbSet<Role> Role {  get; set; } = null!;
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Existing relationships
@@ -70,7 +68,7 @@ namespace api.Data
             modelBuilder.Entity<Notification>().ToTable("Notification");
             modelBuilder.Entity<Category>().ToTable("Category");
             modelBuilder.Entity<HardwareCategory>().ToTable("HardwareCategory");
-            modelBuilder.Entity<Models.Type>().ToTable("Type");
+            modelBuilder.Entity<Types>().ToTable("Type");
 
             base.OnModelCreating(modelBuilder);
         }

@@ -7,6 +7,7 @@ namespace DTOs.TypeDTOs
 {
     public class TypeReadDTO
     {
-        
+        public int id { get; set; }
+        public string name { get; set; } = string.Empty;
     }
 }
