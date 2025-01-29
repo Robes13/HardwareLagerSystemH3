@@ -25,12 +25,6 @@ namespace api.Data
             // Existing relationships
 
             modelBuilder.Entity<HardwareCategory>()
-                .HasOne(hc => hc.user)
-                .WithMany()
-                .HasForeignKey(hc => hc.userid)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<HardwareCategory>()
                 .HasOne(hc => hc.hardware)
                 .WithMany()
                 .HasForeignKey(hc => hc.hardwareid)

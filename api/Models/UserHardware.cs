@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace api.Models
 {
-    public class HardwareCategory
+    public class UserHardware
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
