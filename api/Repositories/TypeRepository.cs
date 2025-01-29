@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
 using api.DTOs.TypeDTOs;
+using api.Helpers.QueryObject;
 using api.Interfaces;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -39,9 +40,18 @@ namespace api.Repositories
             return typeModel;
         }
 
-        public async Task<List<Types>> GetAllAsync()
+        public async Task<List<Types>> GetAllAsync(TypeQueryObject query)
         {
-            return await _context.Types.ToListAsync();
+            var types = _context.Types.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(query.name))
+            {
+                types = types.Where(c => c.name.Contains(query.name));
+            }
+
+            var skipNumber = (query.PageNumber - 1) * query.PageSize;
+
+            return await types.Skip(skipNumber).Take(query.PageSize).ToListAsync();
         }
 
         public async Task<Types?> GetByIdAsync(int id)

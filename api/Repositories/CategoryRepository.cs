@@ -7,6 +7,7 @@ using api.Models;
 using api.Data;
 using Microsoft.EntityFrameworkCore;
 using api.DTOs.CategoryDTOs;
+using api.Helpers.QueryObject;
 
 namespace api.Repositories
 {
@@ -40,9 +41,18 @@ namespace api.Repositories
             return categoryModel;
         }
 
-        public async Task<List<Category>> GetAllAsync()
+        public async Task<List<Category>> GetAllAsync(CategoryQueryObject query)
         {
-            return await _context.Category.ToListAsync();
+            var categories = _context.Category.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(query.name))
+            {
+                categories = categories.Where(c => c.name.Contains(query.name));
+            }
+
+            var skipNumber = (query.PageNumber - 1) * query.PageSize;
+
+            return await categories.Skip(skipNumber).Take(query.PageSize).ToListAsync();
         }
 
         public async Task<Category?> GetByIdAsync(int id)

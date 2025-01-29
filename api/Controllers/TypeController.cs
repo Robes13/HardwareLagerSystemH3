@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.DTOs.TypeDTOs;
+using api.Helpers.QueryObject;
 using api.Interfaces;
 using Mappers;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +14,6 @@ namespace api.Controllers
     [ApiController]
     public class TypeController : ControllerBase
     {
-
-        /// <summary>
-        /// IKKE FÆRDIGT LAV HURTIGST MULIGT!!!!!
-        /// </summary>
         private readonly ITypes _typeRepo;
         public TypeController(ITypes typeRepo)
         {
@@ -25,12 +22,12 @@ namespace api.Controllers
 
         [HttpGet]
         [Route("GetAllTypes")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] TypeQueryObject query)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var types = await _typeRepo.GetAllAsync();
+            var types = await _typeRepo.GetAllAsync(query);
 
             var typeDto = types.Select(s => s.ToTypeDto());
 

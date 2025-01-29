@@ -3,6 +3,7 @@ using MySql.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using api.Interfaces;
 using api.Repositories;
+using api.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ builder.Services.AddDbContext<ApiDbContext>(options =>
 #pragma warning restore CS8604
 builder.Services.AddScoped<ICategory, CategoryRepository>();
 builder.Services.AddScoped<ITypes, TypeRepository>();
+builder.Services.AddScoped<IHardware, HardwareRepository>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

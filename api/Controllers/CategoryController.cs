@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.DTOs.CategoryDTOs;
+using api.Helpers.QueryObject;
 using api.Interfaces;
 using Mappers;
 using Microsoft.AspNetCore.Mvc;
@@ -21,12 +22,12 @@ namespace api.Controllers
 
         [HttpGet]
         [Route("GetAllCategories")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] CategoryQueryObject query)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var categories = await _categoryRepo.GetAllAsync();
+            var categories = await _categoryRepo.GetAllAsync(query);
 
             var categoryDto = categories.Select(s => s.ToCategoryDto());
 
