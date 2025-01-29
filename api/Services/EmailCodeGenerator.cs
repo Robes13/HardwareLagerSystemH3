@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace api.Helpers
+namespace api.Services
 {
-    public class Email
+    public class EmailCodeGenerator
     {
         private readonly int _numbers = 5;
         private readonly char[] qwertyInputs = new char[]

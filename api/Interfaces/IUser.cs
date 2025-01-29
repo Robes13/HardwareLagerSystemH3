@@ -21,9 +21,9 @@ namespace api.Interfaces
         /// </summary>
         /// <param name="id"> the id</param>
         /// <returns></returns>
-        Task<User?> GetByIdAsync(int id);
+        Task<UserReadDTO?> GetByIdAsync(int id);
 
-        Task<List<User>> GetAllAsync();
+        Task<List<UserReadDTO>> GetAllAsync();
 
         /// <summary>
         /// This method will update a user

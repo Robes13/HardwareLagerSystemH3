@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <!-- ASP.NET Core OpenAPI for Swagger generation -->
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.72" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8" />
     
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
@@ -21,6 +23,7 @@
     
     <!-- MSTest for unit testing -->
     <PackageReference Include="MSTest.TestFramework" Version="3.7.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     
     <!-- Swashbuckle for Swagger -->
 <!-- Swashbuckle for Swagger -->

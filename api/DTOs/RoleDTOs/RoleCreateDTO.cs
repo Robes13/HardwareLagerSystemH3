@@ -9,9 +9,6 @@ namespace api.DTOs.RoleDTOs
 {
     public class RoleCreateDTO
     {
-        [Required]
-        [Column(TypeName = "nvarchar(15)")]
-        [MaxLength(15, ErrorMessage = "Name is longer then 15 characters")]
         public string name { get; set; } = string.Empty;
     }
 }

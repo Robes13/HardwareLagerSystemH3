@@ -8,6 +8,7 @@ using api.Interfaces;
 using api.Models;
 using api.Mappers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace api.Repositories
 {
@@ -28,8 +29,10 @@ namespace api.Repositories
 
         public async Task<List<Role>> GetAllAsync()
         {
-            return await _context.Role.OrderBy(x => x.id).ToListAsync();
+            // Fix: Include the full users navigation property (not its individual properties)
+            return await _context.Role.OrderBy(x => x.id).Include(x => x.users).ToListAsync();
         }
+
         public async Task<Role?> DeleteAsync(int id)
         {
             var role = await _context.Role.FindAsync(id);
