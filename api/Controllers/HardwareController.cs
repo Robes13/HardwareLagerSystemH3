@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using api.DTOs.HardwareDTOs;
 using api.Helpers.QueryObject;
 using api.Interfaces;
+using api.Repositories;
 using DTOs.HardwareDTOs;
 using Mappers;
 using Microsoft.AspNetCore.Mvc;
@@ -16,9 +17,11 @@ namespace api.Controllers
     public class HardwareController : ControllerBase
     {
         private readonly IHardware _hardwareRepo;
-        public HardwareController(IHardware hardwareRepo)
+        private readonly ITypes _typeRepo;
+        public HardwareController(IHardware hardwareRepo, ITypes typeRepo)
         {
             _hardwareRepo = hardwareRepo;
+            _typeRepo = typeRepo;
         }
 
         [HttpGet]
@@ -30,7 +33,7 @@ namespace api.Controllers
 
             var hardwares = await _hardwareRepo.GetAllAsync(query);
 
-            var hardwareDto = hardwares.Select(s => s.ToHardwareDto()).ToList(); // To list the collection
+            var hardwareDto = hardwares.Select(s => s.ToHardwareDto()).ToList();
 
             return Ok(hardwareDto);
         }
@@ -47,7 +50,7 @@ namespace api.Controllers
 
             if (hardware == null)
             {
-                return NotFound();
+                return NotFound("Hardware not found.");
             }
 
             return Ok(hardware.ToHardwareDto());
@@ -60,8 +63,13 @@ namespace api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var hardwareModel = hardwareDto.ToHardwareFromCreate();
+            bool typeExists = await _typeRepo.ExistsAsync(hardwareDto.typeid);
+            if (!typeExists)
+            {
+                return NotFound("Invalid Type ID.");
+            }
 
+            var hardwareModel = hardwareDto.ToHardwareFromCreate();
             await _hardwareRepo.CreateAsync(hardwareModel);
 
             return Ok("Hardware Added!");
@@ -78,7 +86,7 @@ namespace api.Controllers
 
             if (hardwareModel == null)
             {
-                return NotFound();
+                return NotFound("ID does not match any Hardware");
             }
 
             return Ok(hardwareModel.ToHardwareDto());
@@ -94,7 +102,7 @@ namespace api.Controllers
 
             if (hardwareModel == null)
             {
-                return NotFound();
+                return NotFound("No Hardware found to delete.");
             }
 
             return NoContent();

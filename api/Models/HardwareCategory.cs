@@ -15,9 +15,10 @@ namespace api.Models
         [Required]
         public int categoryid { get; set; }
 
-
-        // Navigation properties
         public Hardware hardware { get; set; } = null!;
         public Category category { get; set; } = null!;
+
+        public List<HardwareCategory> HardwareCategories { get; set; } = new List<HardwareCategory>();
+
     }
 }

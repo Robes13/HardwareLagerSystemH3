@@ -45,7 +45,7 @@ namespace api.Controllers
 
             if (category == null)
             {
-                return NotFound();
+                return NotFound("No Category found with that ID.");
             }
 
             return Ok(category.ToCategoryDto());
@@ -76,7 +76,7 @@ namespace api.Controllers
 
             if (categoryModel == null)
             {
-                return NotFound();
+                return NotFound("No Category found to update");
             }
 
             return Ok(categoryModel.ToCategoryDto());
@@ -92,7 +92,7 @@ namespace api.Controllers
 
             if (categoryModel == null)
             {
-                return NotFound();
+                return NotFound("No Category found to delete");
             }
 
             return NoContent();

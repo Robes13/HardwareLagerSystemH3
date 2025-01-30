@@ -25,5 +25,7 @@ namespace api.Models
         [Required]
         public int typeid { get; set; }
         public Types type { get; set; } = null!;
+
+        public List<HardwareCategory> HardwareCategories { get; set; } = new List<HardwareCategory>();
     }
 }

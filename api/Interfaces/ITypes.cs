@@ -16,5 +16,6 @@ namespace api.Interfaces
         Task<Types> CreateAsync(Types typeModel);
         Task<Types?> UpdateAsync(int id, TypeUpdateDTO typeDto);
         Task<Types?> DeleteAsync(int id);
+        Task<bool> ExistsAsync(int id);
     }
 }

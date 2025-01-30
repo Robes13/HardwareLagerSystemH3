@@ -7,7 +7,9 @@ using api.DTOs.HardwareDTOs;
 using api.Helpers.QueryObject;
 using api.Interfaces;
 using api.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using Mysqlx;
 
 namespace api.Repositories
 {
@@ -45,7 +47,8 @@ namespace api.Repositories
             var hardwares = _context.Hardware
                 .Include(h => h.hardwarestatus)
                 .Include(h => h.type)
-                // .Include(h => h.HardwareCategories) // Include categories
+                .Include(h => h.HardwareCategories)
+                    .ThenInclude(hc => hc.category)
                 .AsQueryable();
 
             if (query.hardwarestatusid >= 0)
@@ -65,7 +68,12 @@ namespace api.Repositories
 
         public async Task<Hardware?> GetByIdAsync(int id)
         {
-            return await _context.Hardware.FindAsync(id);
+            return await _context.Hardware
+                .Include(h => h.hardwarestatus)
+                .Include(h => h.type)
+                .Include(h => h.HardwareCategories)
+                    .ThenInclude(hc => hc.category)
+                .FirstOrDefaultAsync(h => h.id == id);
         }
 
         public async Task<Hardware?> UpdateAsync(int id, HardwareUpdateDTO hardwareDto)
