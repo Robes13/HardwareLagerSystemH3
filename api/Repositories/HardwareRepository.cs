@@ -45,7 +45,7 @@ namespace api.Repositories
             var hardwares = _context.Hardware
                 .Include(h => h.hardwarestatus)
                 .Include(h => h.type)
-                .Include(h => h.HardwareCategories) // Include categories
+                // .Include(h => h.HardwareCategories) // Include categories
                 .AsQueryable();
 
             if (query.hardwarestatusid >= 0)
