@@ -45,7 +45,7 @@ namespace api.Controllers
 
             if (type == null)
             {
-                return NotFound();
+                return NotFound("No Type found with that ID.");
             }
 
             return Ok(type.ToTypeDto());
@@ -76,7 +76,7 @@ namespace api.Controllers
 
             if (typeModel == null)
             {
-                return NotFound();
+                return NotFound("No Type found to update.");
             }
 
             return Ok(typeModel.ToTypeDto());
@@ -92,7 +92,7 @@ namespace api.Controllers
 
             if (typeModel == null)
             {
-                return NotFound();
+                return NotFound("No Type found to delete.");
             }
 
             return NoContent();
