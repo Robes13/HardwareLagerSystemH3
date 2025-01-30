@@ -15,5 +15,6 @@ namespace api.Interfaces
         Task<Hardware> CreateAsync(Hardware hardwareModel);
         Task<Hardware?> UpdateAsync(int id, HardwareUpdateDTO hardwareDto);
         Task<Hardware?> DeleteAsync(int id);
+        Task<bool> ExistsAsync(int id);
     }
 }

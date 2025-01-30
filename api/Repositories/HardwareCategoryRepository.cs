@@ -21,12 +21,32 @@ namespace api.Repositories
 
         public async Task<List<HardwareCategory>> GetAllAsync(HardwareCategoryQueryObject query)
         {
-            return await _context.HardwareCategory.ToListAsync();
+            var hardwarecategories = _context.HardwareCategory
+                .Include(h => h.hardware)
+                .Include(h => h.category)
+                .AsQueryable();
+
+            if (query.hardwareid >= 0)
+            {
+                hardwarecategories = hardwarecategories.Where(c => c.hardwareid == query.hardwareid);
+            }
+
+            if (query.categoryid >= 0)
+            {
+                hardwarecategories = hardwarecategories.Where(c => c.categoryid == query.categoryid);
+            }
+
+            var skipNumber = (query.PageNumber - 1) * query.PageSize;
+
+            return await hardwarecategories.Skip(skipNumber).Take(query.PageSize).ToListAsync();
         }
 
         public async Task<HardwareCategory?> GetByIdAsync(int id)
         {
-            return await _context.HardwareCategory.FindAsync(id);
+            return await _context.HardwareCategory
+                .Include(h => h.hardware)
+                .Include(h => h.category)
+                .FirstOrDefaultAsync(h => h.id == id);
         }
 
         public async Task<HardwareCategory> CreateAsync(HardwareCategory hardwarecategoryModel)
@@ -67,9 +87,9 @@ namespace api.Repositories
             return hardwarecategoryModel;
         }
 
-        public Task<bool> HardwareCategoryExists(int id)
+        public async Task<bool> HardwareCategoryExists(int id)
         {
-            return _context.HardwareCategory.AnyAsync(s => s.id == id);
+            return await _context.HardwareCategory.AnyAsync(s => s.id == id);
         }
     }
 }

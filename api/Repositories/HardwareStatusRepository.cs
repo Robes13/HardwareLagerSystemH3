@@ -37,6 +37,11 @@ namespace api.Repositories
             return hardwareStatusToDelete;
         }
 
+        public async Task<bool> ExistsAsync(int id)
+        {
+            return await _context.HardwareStatus.AnyAsync(t => t.id == id);
+        }
+
         public Task<List<HardwareStatus>> GetAllHardwareStatusesAsync()
         {
             return _context.HardwareStatus.ToListAsync();

@@ -9,11 +9,9 @@ namespace DTOs.HardwareCategoryDTOs
     public class HardwareCategoryCreateDTO
     {
         [Required]
-        [Range(0, 500000)]
         public int hardwareid { get; set; }
 
         [Required]
-        [Range(0, 500000)]
         public int categoryid { get; set; }
     }
 }

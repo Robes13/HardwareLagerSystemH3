@@ -11,14 +11,11 @@ namespace api.Models
 
         [Required]
         public int hardwareid { get; set; }
+        public Hardware hardware { get; set; } = null!;
 
         [Required]
         public int categoryid { get; set; }
 
-        public Hardware hardware { get; set; } = null!;
         public Category category { get; set; } = null!;
-
-        public List<HardwareCategory> HardwareCategories { get; set; } = new List<HardwareCategory>();
-
     }
 }

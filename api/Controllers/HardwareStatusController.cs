@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
-    [Route("api/hardwarecategory")]
+    [Route("api/hardwarestatus")]
     [ApiController]
 
     public class HardwareStatusController : ControllerBase

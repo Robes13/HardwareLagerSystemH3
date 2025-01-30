@@ -18,10 +18,12 @@ namespace api.Controllers
     {
         private readonly IHardware _hardwareRepo;
         private readonly ITypes _typeRepo;
-        public HardwareController(IHardware hardwareRepo, ITypes typeRepo)
+        private readonly IHardwareStatus _hardwarestatusRepo;
+        public HardwareController(IHardware hardwareRepo, ITypes typeRepo, IHardwareStatus hardwarestatusRepo)
         {
             _hardwareRepo = hardwareRepo;
             _typeRepo = typeRepo;
+            _hardwarestatusRepo = hardwarestatusRepo;
         }
 
         [HttpGet]
@@ -63,6 +65,12 @@ namespace api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            bool hardwarestatusExists = await _hardwarestatusRepo.ExistsAsync(hardwareDto.hardwarestatusid);
+            if (!hardwarestatusExists)
+            {
+                return NotFound("Invalid HardwareStatus ID.");
+            }
+
             bool typeExists = await _typeRepo.ExistsAsync(hardwareDto.typeid);
             if (!typeExists)
             {
@@ -82,6 +90,18 @@ namespace api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            bool hardwarestatusExists = await _hardwarestatusRepo.ExistsAsync(updateDto.hardwarestatusid);
+            if (!hardwarestatusExists)
+            {
+                return NotFound("Invalid HardwareStatus ID.");
+            }
+
+            bool typeExists = await _typeRepo.ExistsAsync(updateDto.typeid);
+            if (!typeExists)
+            {
+                return NotFound("Invalid Type ID.");
+            }
+
             var hardwareModel = await _hardwareRepo.UpdateAsync(id, updateDto);
 
             if (hardwareModel == null)
@@ -89,7 +109,7 @@ namespace api.Controllers
                 return NotFound("ID does not match any Hardware");
             }
 
-            return Ok(hardwareModel.ToHardwareDto());
+            return Ok("The Hardware was updated!");
         }
         [HttpDelete]
         [Route("DeleteHardware/{id:int}")]

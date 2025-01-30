@@ -20,47 +20,31 @@ namespace api.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Existing relationships
+            // Define the relationship between HardwareCategory and Hardware
+            modelBuilder.Entity<HardwareCategory>()
+                .HasOne(hc => hc.hardware)  // Each HardwareCategory has one Hardware
+                .WithMany(h => h.HardwareCategories)  // Each Hardware has many HardwareCategories
+                .HasForeignKey(hc => hc.hardwareid)  // Specify the foreign key
+                .OnDelete(DeleteBehavior.Cascade);  // Specify the delete behavior
 
             modelBuilder.Entity<HardwareCategory>()
-                .HasOne(hc => hc.hardware)
-                .WithMany()
-                .HasForeignKey(hc => hc.hardwareid)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasOne(hc => hc.category)  // Each HardwareCategory has one Category
+                .WithMany()  // Category can have many HardwareCategories
+                .HasForeignKey(hc => hc.categoryid)  // Specify the foreign key
+                .OnDelete(DeleteBehavior.Cascade);  // Specify the delete behavior
 
-            modelBuilder.Entity<HardwareCategory>()
-                .HasOne(hc => hc.category)
-                .WithMany()
-                .HasForeignKey(hc => hc.categoryid)
-                .OnDelete(DeleteBehavior.Cascade);
-
+            // Define the relationship between Hardware and other entities
             modelBuilder.Entity<Hardware>()
                 .HasOne(h => h.type)
                 .WithMany()
                 .HasForeignKey(h => h.typeid)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Add the foreign key relationship between Hardware and HardwareStatus
             modelBuilder.Entity<Hardware>()
-                .HasOne(h => h.hardwarestatus)  // Reference the HardwareStatus navigation property
-                .WithMany()  // You can change this if HardwareStatus has a collection of Hardware, but here it's assumed there isn't.
-                .HasForeignKey(h => h.hardwarestatusid)  // The foreign key property in Hardware model
-                .OnDelete(DeleteBehavior.Cascade); // Define the delete behavior (optional)
-
-            // Convert enums if needed
-            modelBuilder.Entity<User>()
-            .HasOne(u => u.Role)  // Each User has one Role
-            .WithMany(r => r.users) // Each Role has many Users
-            .HasForeignKey(u => u.roleid);  // Foreign key from User to Role
-
-            modelBuilder.Entity<Hardware>()
-                .Property(h => h.hardwarestatusid)
-                .HasConversion<int>();
-
-            modelBuilder.Entity<User>()
-                .Property(u => u.datedeleted)
-                .HasColumnType("DATETIME")
-                .IsRequired(false);
+                .HasOne(h => h.hardwarestatus)
+                .WithMany()
+                .HasForeignKey(h => h.hardwarestatusid)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Table configurations
             modelBuilder.Entity<User>().ToTable("User");
@@ -72,5 +56,6 @@ namespace api.Data
 
             base.OnModelCreating(modelBuilder);
         }
+
     }
 }

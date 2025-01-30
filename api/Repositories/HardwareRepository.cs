@@ -42,6 +42,11 @@ namespace api.Repositories
             return hardwareModel;
         }
 
+        public async Task<bool> ExistsAsync(int id)
+        {
+            return await _context.Hardware.AnyAsync(s => s.id == id);
+        }
+
         public async Task<List<Hardware>> GetAllAsync(HardwareQueryObject query)
         {
             var hardwares = _context.Hardware

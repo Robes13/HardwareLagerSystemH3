@@ -17,7 +17,8 @@ namespace api.Interfaces
 
         Task<HardwareStatus?> UpdateHardwareStatusAsync(int id, HardwareStatusUpdateDTO hardwareStatus);
 
-        Task <HardwareStatus?>DeleteHardwareStatusAsync(int id);
+        Task<HardwareStatus?> DeleteHardwareStatusAsync(int id);
 
+        Task<bool> ExistsAsync(int id);
     }
 }

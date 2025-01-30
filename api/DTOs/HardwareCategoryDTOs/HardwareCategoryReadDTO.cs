@@ -7,8 +7,8 @@ namespace DTOs.HardwareCategoryDTOs
 {
     public class HardwareCategoryReadDTO
     {
-        public int hardwarecategoryid { get; set; }
-        public int hardwareid { get; set; }
-        public int categoryid { get; set; }
+        public int id { get; set; }
+        public string? hardware { get; set; }
+        public string? category { get; set; }
     }
 }

@@ -13,9 +13,9 @@ namespace api.Mappers
         {
             return new HardwareCategoryReadDTO
             {
-                hardwarecategoryid = hardwarecategoryModel.id,
-                hardwareid = hardwarecategoryModel.hardwareid,
-                categoryid = hardwarecategoryModel.categoryid
+                id = hardwarecategoryModel.id,
+                hardware = hardwarecategoryModel.hardware?.name,
+                category = hardwarecategoryModel.category?.name,
             };
         }
 

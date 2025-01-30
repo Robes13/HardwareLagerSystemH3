@@ -19,7 +19,11 @@ builder.Services.AddDbContext<ApiDbContext>(options =>
 
 builder.Services.AddScoped<IRole, RoleRepository>();
 builder.Services.AddScoped<IUser, UserRepository>();
+builder.Services.AddScoped<IHardware, HardwareRepository>();
+builder.Services.AddScoped<ITypes, TypeRepository>();
+builder.Services.AddScoped<ICategory, CategoryRepository>();
 builder.Services.AddScoped<IHardwareCategory, HardwareCategoryRepository>();
+builder.Services.AddScoped<IHardwareStatus, HardwareStatusRepository>();
 builder.Services.AddControllers().AddNewtonsoftJson(Options =>
 {
     Options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;

@@ -41,6 +41,11 @@ namespace api.Repositories
             return categoryModel;
         }
 
+        public async Task<bool> ExistsAsync(int id)
+        {
+            return await _context.Category.AnyAsync(s => s.id == id);
+        }
+
         public async Task<List<Category>> GetAllAsync(CategoryQueryObject query)
         {
             var categories = _context.Category.AsQueryable();
