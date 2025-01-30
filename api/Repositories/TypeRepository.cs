@@ -49,6 +49,7 @@ namespace api.Repositories
                 types = types.Where(c => c.name.Contains(query.name));
             }
 
+
             var skipNumber = (query.PageNumber - 1) * query.PageSize;
 
             return await types.Skip(skipNumber).Take(query.PageSize).ToListAsync();
@@ -73,6 +74,10 @@ namespace api.Repositories
             await _context.SaveChangesAsync();
 
             return existingType;
+        }
+        public async Task<bool> ExistsAsync(int id)
+        {
+            return await _context.Types.AnyAsync(t => t.id == id);
         }
     }
 }
