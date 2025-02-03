@@ -26,7 +26,7 @@ namespace api.Repositories
             {
                 return null;
             }
-            if(email.IsVerified)
+            if (email.IsVerified)
             {
                 return true;
             }
@@ -86,23 +86,34 @@ namespace api.Repositories
             return existingEmail;
         }
 
-        public async Task<Email?>UpdateVerify(CheckEmailSecretCodeDTO updateVerifyDTO)
+        public async Task<Email?> UpdateVerify(CheckEmailSecretCodeDTO updateVerifyDTO)
         {
+            // Retrieve the existing email from the database by email address
             var existingEmail = await _context.Email.FirstOrDefaultAsync(e => e.EmailAddress == updateVerifyDTO.EmailAddress);
+
             if (existingEmail == null)
             {
+                // If no email is found, return null
                 return null;
             }
-            if(existingEmail.SecretKey == updateVerifyDTO.SecretKey)
+
+            if (BCrypt.Net.BCrypt.Verify(updateVerifyDTO.SecretKey, existingEmail.SecretKey))
             {
+                // If the SecretKey is valid, update the verification status
                 existingEmail.IsVerified = true;
-                await _context.SaveChangesAsync();
-                return existingEmail;
+                await _context.SaveChangesAsync();  // Save the changes to the database
+                return existingEmail;  // Return the updated email object
             }
             else
             {
+                // If the SecretKey does not match, return null
                 return null;
             }
-        }   
+        }
+
+        public async Task<Email?> GetByEmailAsync(string emailaddress)
+        {
+            return await _context.Email.FirstOrDefaultAsync(u => u.EmailAddress == emailaddress);
+        }
     }
 }

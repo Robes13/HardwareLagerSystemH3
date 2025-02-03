@@ -49,5 +49,8 @@ namespace api.Interfaces
         Task<User?> AuthenticateAsync(AuthenticateUserDTO authenticateUserDTO);
 
         #endregion
+
+        Task<User?> GetByUsernameAsync(string username);
+        Task<User?> GetByEmailAsync(int emailId);
     }
 }

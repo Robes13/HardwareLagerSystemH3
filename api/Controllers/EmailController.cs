@@ -9,6 +9,8 @@ using api.Services;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using api.Mappers;
 using api.DTOs.EmailDTOs;
+using System.Text.RegularExpressions;
+using System.Text;
 
 namespace api.Controllers
 {
@@ -20,13 +22,15 @@ namespace api.Controllers
         private readonly IEmail _email;
         private readonly EmailCodeGenerator _createSecretEmailKey;
         private readonly EmailCodeSender _emailCodeSender;
+        private readonly IUser _user;
 
-        public EmailController(ApiDbContext context, IEmail email, EmailCodeGenerator createSecretEmailKey, EmailCodeSender emailCodeSender)
+        public EmailController(ApiDbContext context, IEmail email, EmailCodeGenerator createSecretEmailKey, EmailCodeSender emailCodeSender, IUser user)
         {
             _context = context;
             _email = email;
             _createSecretEmailKey = createSecretEmailKey;
             _emailCodeSender = emailCodeSender;
+            _user = user;
         }
 
         [HttpGet("{id:int}")]
@@ -57,27 +61,14 @@ namespace api.Controllers
             var email = createEmailDTO.ToEmailFromCreateDTO();
             email.SecretKey = _createSecretEmailKey.GenerateSecretEmailKey();
 
-            // Path to your HTML file
-            string emailBodyFilePath = @"C:\Users\zbc23rope\Desktop\Project Database Hjemmeside\Email\Email.html";
+            string emailBody = await ScrapeHtmlAndCss("https://sitemods.dk/apiprojekt/Email.html");
 
-            // Step 4: Read the HTML file content as email body
-            string emailBody = string.Empty;
-            try
+            if (string.IsNullOrEmpty(emailBody))
             {
-                if (System.IO.File.Exists(emailBodyFilePath))
-                {
-                    emailBody = System.IO.File.ReadAllText(emailBodyFilePath);
-                    emailBody = emailBody.Replace("{emailcode}", email.SecretKey);
-                }
-                else
-                {
-                    return NotFound("The email body HTML file was not found.");
-                }
+                return StatusCode(500, "Failed to retrieve the email body.");
             }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "An error occurred while reading the HTML email body.");
-            }
+
+            emailBody = emailBody.Replace("{emailcode}", email.SecretKey);
 
             // Step 5: Send the email with the HTML content as body
             _emailCodeSender.SendEmail(email.EmailAddress, "Verify your email for TalentPortal", emailBody, true);
@@ -85,6 +76,7 @@ namespace api.Controllers
             // Step 6: Check if email already exists
             try
             {
+                email.SecretKey = BCrypt.Net.BCrypt.HashPassword(email.SecretKey);
                 // Try to create the email in the database
                 await _email.CreateEmailAsync(email);
             }
@@ -97,7 +89,50 @@ namespace api.Controllers
             return CreatedAtAction(nameof(GetById), new { id = email.Id }, email.ToEmailDTO());
         }
 
+        private async Task<string> ScrapeHtmlAndCss(string url)
+        {
+            using HttpClient client = new HttpClient();
 
+            try
+            {
+                // Fetch HTML
+                string html = await client.GetStringAsync(url);
+
+                // Extract CSS links
+                MatchCollection matches = Regex.Matches(html, @"<link.*?href=['""](?<url>[^'""]+\.css)['""]");
+
+                StringBuilder fullContent = new StringBuilder();
+                fullContent.AppendLine(html); // Add the HTML first
+
+                foreach (Match match in matches)
+                {
+                    string cssUrl = match.Groups["url"].Value;
+
+                    // Convert relative URL to absolute if needed
+                    if (!cssUrl.StartsWith("http"))
+                    {
+                        Uri baseUri = new Uri(url);
+                        cssUrl = new Uri(baseUri, cssUrl).ToString();
+                    }
+
+                    try
+                    {
+                        string cssContent = await client.GetStringAsync(cssUrl);
+                        fullContent.AppendLine($"<style>\n{cssContent}\n</style>");
+                    }
+                    catch (Exception)
+                    {
+                        // Ignore if CSS file fails to load
+                    }
+                }
+
+                return fullContent.ToString();
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
+        }
         [HttpPut]
         [Route("update/{id:int}")]
         public async Task<IActionResult> UpdateEmail([FromRoute] int id, [FromBody] EmailUpdateDTO emailUpdate)
@@ -124,13 +159,32 @@ namespace api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var email = await _email.DeleteAsync(id);
+
+            // First, get the email by ID
+            var email = await _email.GetByIdAsync(id);
             if (email == null)
             {
                 return NotFound();
             }
+
+            // Check if there is a user associated with the email
+            var userWithEmail = await _user.GetByEmailAsync(id);
+            if (userWithEmail != null)
+            {
+                // If a user is found with this email, return an error response
+                return Conflict("Cannot delete this email, as it is associated with a user.");
+            }
+
+            // If no user is found, proceed with deleting the email
+            var deletedEmail = await _email.DeleteAsync(id);
+            if (deletedEmail == null)
+            {
+                return NotFound();
+            }
+
             return NoContent();
         }
+
         [HttpPut]
         [Route("verifyEmail")]
         public async Task<IActionResult> VerifyEmail([FromBody] CheckEmailSecretCodeDTO updateVerifyDTO)
@@ -139,7 +193,15 @@ namespace api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var email = await _email.UpdateVerify(updateVerifyDTO);
+
+            var email = await _email.GetByEmailAsync(updateVerifyDTO.EmailAddress);
+
+            if (email == null || !BCrypt.Net.BCrypt.Verify(updateVerifyDTO.SecretKey, email.SecretKey))
+            {
+                return Unauthorized("Invalid Email or password.");
+            }
+
+            await _email.UpdateVerify(updateVerifyDTO);
             if (email == null)
             {
                 return NotFound();

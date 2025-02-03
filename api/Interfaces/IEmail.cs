@@ -52,6 +52,9 @@ namespace api.Interfaces
         /// <returns></returns>
         Task<Email?> GetSecretKeyAsync(int id);
 
-        Task<Email?>UpdateVerify(CheckEmailSecretCodeDTO updateVerifyDTO);
+        Task<Email?> GetByEmailAsync(string secretkey);
+
+
+        Task<Email?> UpdateVerify(CheckEmailSecretCodeDTO updateVerifyDTO);
     }
 }

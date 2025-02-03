@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
 using api.DTOs.RoleDTOs;
+using api.DTOs.UserDTOs;
 using api.Interfaces;
 using api.Mappers;
 using api.Models;
@@ -53,10 +54,10 @@ namespace api.Controllers
             role.users.Append(user);
             user.Role = role;
             // Add the user to the User table and save the changes
-            _context.User.Add(user);
+            await _iuser.CreateAsync(user);
             await _context.SaveChangesAsync();
 
-            return Ok($"User {user.username} created successfully");             
+            return Ok($"User {user.username} created successfully");
         }
 
 
@@ -139,6 +140,27 @@ namespace api.Controllers
 
             await _context.SaveChangesAsync();
             return Ok($"User with id: {id} updated successfully");
+        }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login([FromBody] AuthenticateUserDTO authenticateDTO)
+        {
+            if (authenticateDTO == null || string.IsNullOrEmpty(authenticateDTO.Username) || string.IsNullOrEmpty(authenticateDTO.Password))
+            {
+                return BadRequest("Username and Password are required.");
+            }
+
+            var user = await _iuser.GetByUsernameAsync(authenticateDTO.Username);
+
+            if (user == null || !BCrypt.Net.BCrypt.Verify(authenticateDTO.Password, user.hashedpassword))
+            {
+                return Unauthorized("Invalid Username or password.");
+            }
+
+            return Ok(new
+            {
+                message = "Login successful!",
+            });
         }
 
     }

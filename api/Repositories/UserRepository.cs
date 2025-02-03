@@ -28,7 +28,6 @@ namespace api.Repositories
 
         public async Task<User> CreateAsync(User user)
         {
-            // Check if the email ID exists in the database
             var existingEmail = await _context.Email
                 .FirstOrDefaultAsync(e => e.Id == user.EmailId);
 
@@ -45,6 +44,8 @@ namespace api.Repositories
             {
                 throw new InvalidOperationException("Username is already taken.");
             }
+
+            user.hashedpassword = BCrypt.Net.BCrypt.HashPassword(user.hashedpassword);
 
             // Proceed to create the new user
             await _context.User.AddAsync(user);
@@ -106,8 +107,8 @@ namespace api.Repositories
                 },
                 Email = new EmailDTO
                 {
-                    IsVerified = user.Email.IsVerified,
-                    EmailAddress = user.Email.EmailAddress
+                    IsVerified = user.Email?.IsVerified ?? false,
+                    EmailAddress = user.Email?.EmailAddress ?? "No email found."
                 }
             }).ToList();
 
@@ -168,6 +169,14 @@ namespace api.Repositories
             return userModel;
         }
 
+        public async Task<User?> GetByUsernameAsync(string username)
+        {
+            return await _context.User.FirstOrDefaultAsync(u => u.username == username);
+        }
 
+        public async Task<User?> GetByEmailAsync(int emailId)
+        {
+            return await _context.User.FirstOrDefaultAsync(u => u.EmailId == emailId);
+        }
     }
 }
