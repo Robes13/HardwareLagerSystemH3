@@ -44,7 +44,11 @@ namespace api.Controllers
             {
                 return NotFound($"Role with id {user.roleid} not found");
             }
-
+            var email = await _context.Email.FindAsync(user.EmailId);
+            if (email == null)
+            {
+                return NotFound($"Email with id {user.EmailId} not found");
+            }
             // Add the user to the role's users collection
             role.users.Append(user);
             user.Role = role;
@@ -52,7 +56,7 @@ namespace api.Controllers
             _context.User.Add(user);
             await _context.SaveChangesAsync();
 
-            return Ok($"User {user.username} created successfully");
+            return Ok($"User {user.username} created successfully");             
         }
 
 
@@ -131,8 +135,6 @@ namespace api.Controllers
 
             user.username = userDto.username;
             user.hashedpassword = userDto.hashedpassword;
-            user.email = userDto.email;
-            user.isVerified = userDto.isVerified;
             user.roleid = userDto.roleid;
 
             await _context.SaveChangesAsync();

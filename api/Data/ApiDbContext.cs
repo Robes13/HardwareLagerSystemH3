@@ -9,17 +9,20 @@ namespace api.Data
         {
         }
 
-        public DbSet<User> User { get; set; } = null!;
-        public DbSet<Hardware> Hardware { get; set; } = null!;
-        public DbSet<Notification> Notification { get; set; } = null!;
-        public DbSet<Category> Category { get; set; } = null!;
-        public DbSet<HardwareCategory> HardwareCategory { get; set; } = null!;
-        public DbSet<Types> Types { get; set; } = null!;
-        public DbSet<HardwareStatus> HardwareStatus { get; set; } = null!;
-        public DbSet<Role> Role { get; set; } = null!;
+        public DbSet<User> User { get; set; }
+        public DbSet<Hardware> Hardware { get; set; }
+        public DbSet<Notification> Notification { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<HardwareCategory> HardwareCategory { get; set; }
+        public DbSet<Types> Types { get; set; }
+        public DbSet<HardwareStatus> HardwareStatus { get; set; }
+        public DbSet<Role> Role { get; set; }
+        public DbSet<Email> Email { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Email>().HasIndex(e => e.EmailAddress).IsUnique();
+
             // Define the relationship between HardwareCategory and Hardware
             modelBuilder.Entity<HardwareCategory>()
                 .HasOne(hc => hc.hardware)  // Each HardwareCategory has one Hardware

@@ -24,6 +24,9 @@ builder.Services.AddScoped<ITypes, TypeRepository>();
 builder.Services.AddScoped<ICategory, CategoryRepository>();
 builder.Services.AddScoped<IHardwareCategory, HardwareCategoryRepository>();
 builder.Services.AddScoped<IHardwareStatus, HardwareStatusRepository>();
+builder.Services.AddScoped<IEmail, EmailRepository>();
+builder.Services.AddScoped<EmailCodeGenerator>();
+builder.Services.AddScoped<EmailCodeSender>();
 builder.Services.AddControllers().AddNewtonsoftJson(Options =>
 {
     Options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;

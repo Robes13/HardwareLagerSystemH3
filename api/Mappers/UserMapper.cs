@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Models;
 using DTOs.UserDTOs;
+using Mappers;
 
 namespace Mappers
 {
@@ -15,7 +16,7 @@ namespace Mappers
             {
                 username = user.username,
                 hashedpassword = user.hashedpassword,
-                email = user.email,
+                EmailId = user.EmailId,
                 fullname = user.fullname,
                 roleid = 1,
             };
@@ -27,9 +28,7 @@ namespace Mappers
             {
                 username = user.username,
                 hashedpassword = user.hashedpassword,
-                email = user.email,
                 fullname = user.fullname,
-                isVerified = user.isVerified,
                 roleid = user.roleid,
             };
         }

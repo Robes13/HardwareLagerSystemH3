@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
+using api.DTOs.EmailDTOs;
 using api.DTOs.RoleDTOs;
 using api.DTOs.UserDTOs;
 using api.Interfaces;
@@ -27,7 +28,26 @@ namespace api.Repositories
 
         public async Task<User> CreateAsync(User user)
         {
-            await _context.AddAsync(user);
+            // Check if the email ID exists in the database
+            var existingEmail = await _context.Email
+                .FirstOrDefaultAsync(e => e.Id == user.EmailId);
+
+            if (existingEmail == null)
+            {
+                throw new InvalidOperationException("The email address does not exist.");
+            }
+
+            // Check if a user with the same username exists
+            var existingUserByUsername = await _context.User
+                .FirstOrDefaultAsync(u => u.username == user.username);
+
+            if (existingUserByUsername != null)
+            {
+                throw new InvalidOperationException("Username is already taken.");
+            }
+
+            // Proceed to create the new user
+            await _context.User.AddAsync(user);
             await _context.SaveChangesAsync();
             return user;
         }
@@ -68,6 +88,7 @@ namespace api.Repositories
             var users = await _context.User
                 .OrderBy(x => x.id)
                 .Include(x => x.Role)  // Include Role entity
+                .Include(x => x.Email) // Include Email
                 .ToListAsync();
 
             // Map the users to UserDTO
@@ -76,14 +97,17 @@ namespace api.Repositories
                 Id = user.id,
                 Username = user.username,
                 HashedPassword = user.hashedpassword,
-                Email = user.email,
                 Fullname = user.fullname,
                 IsDeleted = user.isdeleted,
-                IsVerified = user.isVerified,
                 RoleId = user.roleid,
                 Role = new RoleReadDTO  // Map Role to RoleDTO
                 {
                     RoleName = user.Role.name
+                },
+                Email = new EmailDTO
+                {
+                    IsVerified = user.Email.IsVerified,
+                    EmailAddress = user.Email.EmailAddress
                 }
             }).ToList();
 
@@ -92,7 +116,7 @@ namespace api.Repositories
 
         public async Task<UserReadDTO?> GetByIdAsync(int id)
         {
-            var user = await _context.User.Include(x => x.Role).FirstOrDefaultAsync(x => x.id == id);
+            var user = await _context.User.Include(x => x.Role).Include(e => e.Email).FirstOrDefaultAsync(x => x.id == id);
             if (user == null)
             {
                 return null;
@@ -104,14 +128,17 @@ namespace api.Repositories
                 Id = user.id,
                 Username = user.username,
                 HashedPassword = user.hashedpassword,
-                Email = user.email,
                 Fullname = user.fullname,
-                IsVerified = user.isVerified,
                 IsDeleted = user.isdeleted,
                 RoleId = user.roleid,
                 Role = new RoleReadDTO
                 {
                     RoleName = user.Role.name
+                },
+                Email = new EmailDTO
+                {
+                    IsVerified = user.Email.IsVerified,
+                    EmailAddress = user.Email.EmailAddress
                 }
             };
         }
@@ -133,10 +160,8 @@ namespace api.Repositories
 
             userModel.username = user.username;
             userModel.fullname = user.fullname;
-            userModel.email = user.email;
             userModel.hashedpassword = user.hashedpassword;
-            userModel.isVerified = user.isVerified;
-            userModel.roleid = user.roleid;  
+            userModel.roleid = user.roleid;
 
             await _context.SaveChangesAsync();
 
