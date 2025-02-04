@@ -15,6 +15,7 @@ namespace api.Models
 
         [Required]
         public int userhardwareid { get; set; }
+        public UserHardware userHardware { get; set; }
 
         [Required]
         [Column(TypeName = "nvarchar(255)")]
