@@ -18,11 +18,26 @@ namespace api.Data
         public DbSet<HardwareStatus> HardwareStatus { get; set; }
         public DbSet<Role> Role { get; set; }
         public DbSet<Email> Email { get; set; }
+        public DbSet<UserHardware> UserHardwares { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Email>().HasIndex(e => e.EmailAddress).IsUnique();
 
+            modelBuilder.Entity<UserHardware>()
+                            .HasOne(uh => uh.User)
+                            .WithMany()
+                            .HasForeignKey(uh => uh.userid);
+
+            modelBuilder.Entity<UserHardware>()
+                .HasOne(uh => uh.Hardware)
+                .WithMany()
+                .HasForeignKey(uh => uh.hardwareid);
+
+            modelBuilder.Entity<Notification>()
+                .HasOne(n => n.userHardware)
+                .WithMany(uh => uh.Notifications)
+                .HasForeignKey(n => n.userhardwareid);
             // Define the relationship between HardwareCategory and Hardware
             modelBuilder.Entity<HardwareCategory>()
                 .HasOne(hc => hc.hardware)  // Each HardwareCategory has one Hardware

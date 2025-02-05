@@ -9,47 +9,38 @@ namespace api.Services
 {
     public class EmailCodeSender
     {
-        #region  Fields
-        const string HOSTNAME="smtp.gmail.com";
-        const int PORT=587;
-        const string USERNAME="automechanicsapp@gmail.com";
-        const string PASSWORD="rrta rwwn cflz hylc";
-        const bool ENABLESSL = true;
-        #endregion
+        public async Task<bool> SendEmail(string mailAddress, string subject, string body, bool html)
+        {// SMTP Server Configuration
+            SmtpClient smtpClient = new SmtpClient("mail.itdepot.dk")
+            {
+                Port = 587, // Try this instead of 465
+                EnableSsl = true, // For 587, some providers require EnableSsl = false and StartTLS enabled
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential("system@itdepot.dk", "vlN?&*7?6pM?") // Replace with environment variables
+            };
 
-        public bool SendEmail(string mailAddress, string subject, string body, bool isBodyHtml)
-        {
+
+            // Email Options
+            MailMessage mailMessage = new MailMessage
+            {
+                From = new MailAddress("system@itdepot.dk", "IT Depot System"),
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = html
+            };
+
+            mailMessage.To.Add(mailAddress); // Replace with recipient email
+
             try
             {
-                string senderEmail = USERNAME; 
-                string senderPassword = PASSWORD;
-
-                SmtpClient smtpClient = new SmtpClient(HOSTNAME, PORT)
-                {
-                    Credentials = new NetworkCredential(senderEmail, senderPassword),
-                    EnableSsl = ENABLESSL 
-
-                };
-                MailMessage mailMessage = new MailMessage
-                {
-                    From = new MailAddress(senderEmail),
-                    Subject = subject,
-                    Body = body,
-                    IsBodyHtml = isBodyHtml 
-                };
-
-                // Add recipients
-                mailMessage.To.Add(mailAddress);
-
-                // Send the email
-                smtpClient.Send(mailMessage);
-
+                // Send Email Asynchronously
+                await smtpClient.SendMailAsync(mailMessage);
                 Console.WriteLine("Email sent successfully!");
                 return true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Failed to send email: {ex.Message}");
+                Console.WriteLine($"Error sending email: {ex.Message}");
                 return false;
             }
         }

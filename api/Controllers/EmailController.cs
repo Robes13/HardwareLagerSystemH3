@@ -69,7 +69,6 @@ namespace api.Controllers
             }
 
             emailBody = emailBody.Replace("{emailcode}", email.SecretKey);
-
             // Step 5: Send the email with the HTML content as body
             _emailCodeSender.SendEmail(email.EmailAddress, "Bekræft din E-Mail på ITDepot", emailBody, true);
 

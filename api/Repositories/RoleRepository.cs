@@ -41,6 +41,7 @@ namespace api.Repositories
             {
                 return null;
             }
+
             _context.Role.Remove(role);
             await _context.SaveChangesAsync();
             return role;
@@ -49,10 +50,12 @@ namespace api.Repositories
         public async Task<Role?> GetAsync(int id)
         {
             var role = await _context.Role.FindAsync(id);
+
             if (role == null)
             {
                 return null;
             }
+            
             return role;
         }
 

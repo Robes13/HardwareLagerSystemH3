@@ -18,9 +18,9 @@ namespace Mappers
                 hardwarestatus = hardwareModel.hardwarestatus?.name,
                 type = hardwareModel.type?.name,
                 hardwarecategories = hardwareModel.HardwareCategories?
-                .Select(c => c.category.name)
-                .Where(name => name != null)
-                .ToList() ?? new List<string>()
+                    .Select(c => c.category.name)
+                    .Where(name => name != null)
+                    .ToList() ?? new List<string>()
             };
         }
 
