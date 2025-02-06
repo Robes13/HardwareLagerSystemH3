@@ -18,16 +18,16 @@ namespace api.Data
         public DbSet<HardwareStatus> HardwareStatus { get; set; }
         public DbSet<Role> Role { get; set; }
         public DbSet<Email> Email { get; set; }
-        public DbSet<UserHardware> UserHardwares { get; set; }
+        public DbSet<UserHardware> UserHardware { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Email>().HasIndex(e => e.EmailAddress).IsUnique();
 
             modelBuilder.Entity<UserHardware>()
-                            .HasOne(uh => uh.User)
-                            .WithMany()
-                            .HasForeignKey(uh => uh.userid);
+                .HasOne(uh => uh.User)
+                .WithMany()
+                .HasForeignKey(uh => uh.userid);
 
             modelBuilder.Entity<UserHardware>()
                 .HasOne(uh => uh.Hardware)
@@ -71,6 +71,7 @@ namespace api.Data
             modelBuilder.Entity<Category>().ToTable("Category");
             modelBuilder.Entity<HardwareCategory>().ToTable("HardwareCategory");
             modelBuilder.Entity<Types>().ToTable("Type");
+            modelBuilder.Entity<UserHardware>().ToTable("UserHardware");
 
             base.OnModelCreating(modelBuilder);
         }
