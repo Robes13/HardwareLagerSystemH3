@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DTOs.NotificationDTOs
+namespace api.DTOs.NotificationDTOs
 {
-    public class NotificationReadDTO
+    public class NotificationCreateDTO
     {
-        public int id { get; set; }
         public int userhardwareid { get; set; }
         public string message { get; set; } = string.Empty;
     }

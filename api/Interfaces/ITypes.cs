@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.DTOs.TypeDTOs;
-using api.Helpers.QueryObject;
+using api.Helpers.QueryObjects;
 using api.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 

@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace api.Helpers.QueryObject
+namespace api.Helpers.QueryObjects
 {
-    public class HardwareQueryObject
+    public class TypeQueryObject
     {
-        public int? hardwarestatusid { get; set; }
-        public int? typeid { get; set; }
+        public string? name { get; set; } = null;
         public bool IsDecsending { get; set; } = false;
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 20;

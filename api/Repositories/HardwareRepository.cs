@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
 using api.DTOs.HardwareDTOs;
-using api.Helpers.QueryObject;
+using api.Helpers.QueryObjects;
 using api.Interfaces;
 using api.Models;
 using Microsoft.AspNetCore.Http.HttpResults;

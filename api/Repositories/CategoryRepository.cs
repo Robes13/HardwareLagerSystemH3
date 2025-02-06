@@ -7,7 +7,7 @@ using api.Models;
 using api.Data;
 using Microsoft.EntityFrameworkCore;
 using api.DTOs.CategoryDTOs;
-using api.Helpers.QueryObject;
+using api.Helpers.QueryObjects;
 
 namespace api.Repositories
 {

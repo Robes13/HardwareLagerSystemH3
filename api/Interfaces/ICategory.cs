@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.DTOs.CategoryDTOs;
-using api.Helpers.QueryObject;
+using api.Helpers.QueryObjects;
 using api.Models;
 
 namespace api.Interfaces
