@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using api.Data;
 using api.DTOs.UserHardwareDTOs;
 using api.Interfaces;
+using api.Mappers;
 using api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -54,20 +55,23 @@ namespace api.Controllers
             }
             return Ok(userHardware);
         }
-        
+
         //Add a new hardware to a user
         [HttpPost]
-        public async Task<ActionResult<UserHardware>> AddUserHardware(UserHardware userHardware)
+        public async Task<ActionResult<UserHardware>> AddUserHardware(CreateUserHardwareDTO userHardwareDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            await _userHardware.AddUserHardware(userHardware);
+            UserHardware hardware = userHardwareDto.Rent();
+            await _userHardware.AddUserHardware(hardware);
             await _context.SaveChangesAsync();
-            return CreatedAtAction("GetUserHardwareByUserId", new { id = userHardware.id }, userHardware);
+
+            return CreatedAtAction(nameof(GetByUserId), new { id = hardware.id }, hardware);
         }
-        
+
+
         //Update a user hardware
         [HttpPut("{id:int}")]
         public async Task<IActionResult?> UpdateUserHardware([FromRoute] int id, UpdateUserHardwareDTO userHardware)
@@ -87,7 +91,7 @@ namespace api.Controllers
 
         //Check if a user hardware exists
         [HttpGet("exists/{id:int}")]
-        public async Task<IActionResult> UserHardwareExists([FromRoute]int id)
+        public async Task<IActionResult> UserHardwareExists([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
