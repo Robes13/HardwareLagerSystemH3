@@ -1,6 +1,7 @@
 using api.Data;
 using api.DTOs.UserHardwareDTOs;
 using api.Interfaces;
+using api.Mappers;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
@@ -20,23 +21,24 @@ public class UserHardwareRepository : IUserHardware
         _context = context;
     }
 
-    public async Task<UserHardware?> AddUserHardware(UserHardware userHardware)
+    public async Task<ReadUserHardwareDTO?> AddUserHardware(CreateUserHardwareDTO userHardware)
     {
         //Check if the user exists
-        var user = await _context.User.FirstOrDefaultAsync(u => u.id == userHardware.userid);
+        UserHardware userHardwareToLoan = userHardware.Rent();
+        var user = await _context.User.FirstOrDefaultAsync(u => u.id == userHardwareToLoan.userid);
         if (user == null)
         {
             return null;
         }
         //Check if the hardware exists
-        var hardware = await _context.Hardware.FirstOrDefaultAsync(h => h.id == userHardware.hardwareid);
+        var hardware = await _context.Hardware.FirstOrDefaultAsync(h => h.id == userHardwareToLoan.hardwareid);
         if (hardware == null)
         {
             return null;
         }
-        await _context.UserHardware.AddAsync(userHardware);
+        await _context.UserHardware.AddAsync(userHardwareToLoan);
         await _context.SaveChangesAsync();
-        return userHardware;
+        return userHardwareToLoan.Read();
     }
 
     public Task<bool> Exists(int UserHardwareId)

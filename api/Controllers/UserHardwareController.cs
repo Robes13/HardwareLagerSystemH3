@@ -58,17 +58,16 @@ namespace api.Controllers
 
         //Add a new hardware to a user
         [HttpPost]
-        public async Task<ActionResult<UserHardware>> AddUserHardware(CreateUserHardwareDTO userHardwareDto)
+        public async Task<ActionResult<ReadUserHardwareDTO>> AddUserHardware(CreateUserHardwareDTO userHardwareDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            UserHardware hardware = userHardwareDto.Rent();
-            await _userHardware.AddUserHardware(hardware);
+            await _userHardware.AddUserHardware(userHardwareDto);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetByUserId), new { id = hardware.id }, hardware);
+            return Ok(userHardwareDto.Rent().Read());
         }
 
 

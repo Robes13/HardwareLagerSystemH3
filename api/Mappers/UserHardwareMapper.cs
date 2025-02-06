@@ -18,7 +18,21 @@ namespace api.Mappers
                 startDate = dto.StartDate,
                 endDate = dto.EndDate,
                 deliveryDate = dto.DeliveryDate,
-                isRented = true 
+                isRented = true
+            };
+        }
+        // Read
+        public static ReadUserHardwareDTO Read(this UserHardware userHardware)
+        {
+            return new ReadUserHardwareDTO
+            {
+                id = userHardware.id,
+                fullName = userHardware.User?.username,
+                hardware = userHardware.Hardware?.name,
+                startDate = userHardware.startDate,
+                endDate = userHardware.endDate,
+                deliveryDate = userHardware.deliveryDate,
+                isRented = userHardware.isRented
             };
         }
     }

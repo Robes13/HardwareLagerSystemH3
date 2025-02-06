@@ -26,6 +26,7 @@ builder.Services.AddScoped<IHardwareCategory, HardwareCategoryRepository>();
 builder.Services.AddScoped<IHardwareStatus, HardwareStatusRepository>();
 builder.Services.AddScoped<IEmail, EmailRepository>();
 builder.Services.AddScoped<IUserHardware, UserHardwareRepository>();
+builder.Services.AddScoped<INotification, NotificationRepository>();
 builder.Services.AddScoped<EmailCodeGenerator>();
 builder.Services.AddScoped<EmailCodeSender>();
 builder.Services.AddControllers().AddNewtonsoftJson(Options =>

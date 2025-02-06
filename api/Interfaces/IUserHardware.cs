@@ -12,7 +12,7 @@ namespace api.Interfaces
     {
         Task<List<Hardware>> GetAvailableHardware(List<int> categoryIds, List<int> typeIds, int weeks, string searchString);
         Task<List<UserHardware>> GetUserHardwareByUserId(int userId);
-        Task<UserHardware?> AddUserHardware(UserHardware userHardware);
+        Task<ReadUserHardwareDTO?> AddUserHardware(CreateUserHardwareDTO userHardware);
         Task<UserHardware?> UpdateUserHardware(int id, UpdateUserHardwareDTO userHardware);
         Task<bool> Exists(int UserHardwareId);
     }
