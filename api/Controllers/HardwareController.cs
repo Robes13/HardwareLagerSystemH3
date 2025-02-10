@@ -8,10 +8,12 @@ using api.Interfaces;
 using api.Repositories;
 using DTOs.HardwareDTOs;
 using Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
+    [Authorize]
     [Route("api/hardware")]
     [ApiController]
     public class HardwareController : ControllerBase
@@ -26,6 +28,7 @@ namespace api.Controllers
             _hardwarestatusRepo = hardwarestatusRepo;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("GetAllHardwares")]
         public async Task<IActionResult> GetAll([FromQuery] HardwareQueryObject query)
@@ -40,7 +43,7 @@ namespace api.Controllers
             return Ok(hardwareDto);
         }
 
-
+        [AllowAnonymous]
         [HttpGet]
         [Route("GetByIdHardware/{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)

@@ -10,11 +10,13 @@ using api.Mappers;
 using api.Models;
 using DTOs.UserDTOs;
 using Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Controllers
 {
+    [Authorize]
     [Route("api/user")]
     [ApiController]
     public class UserController : ControllerBase
@@ -28,6 +30,7 @@ namespace api.Controllers
             _iuser = iuser;
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [Route("CreateUser")]
         public async Task<IActionResult> CreateUser([FromBody] UserCreateDTO userDto)
@@ -142,6 +145,7 @@ namespace api.Controllers
             return Ok($"User with id: {id} updated successfully");
         }
 
+        [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] AuthenticateUserDTO authenticateDTO)
         {

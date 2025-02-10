@@ -6,10 +6,12 @@ using api.DTOs.TypeDTOs;
 using api.Helpers.QueryObjects;
 using api.Interfaces;
 using Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
+    [Authorize]
     [Route("api/type")]
     [ApiController]
     public class TypeController : ControllerBase
@@ -20,6 +22,7 @@ namespace api.Controllers
             _typeRepo = typeRepo;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("GetAllTypes")]
         public async Task<IActionResult> GetAll([FromQuery] TypeQueryObject query)
@@ -34,6 +37,7 @@ namespace api.Controllers
             return Ok(typeDto);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("GetByIdTypes/{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)

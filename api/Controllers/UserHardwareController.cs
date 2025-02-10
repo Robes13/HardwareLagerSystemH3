@@ -7,11 +7,13 @@ using api.DTOs.UserHardwareDTOs;
 using api.Interfaces;
 using api.Mappers;
 using api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/userhardware")]
     public class UserHardwareController : ControllerBase
@@ -25,12 +27,13 @@ namespace api.Controllers
             _userHardware = userHardware;
         }
 
+        [AllowAnonymous]
         [HttpGet("available")]
         public async Task<IActionResult> GetAvailableHardware(
-       [FromQuery] List<int> categoryIds,
-       [FromQuery] List<int> typeIds,
-       [FromQuery] int weeks,
-       [FromQuery] string searchString = "")
+               [FromQuery] List<int> categoryIds,
+               [FromQuery] List<int> typeIds,
+               [FromQuery] int weeks,
+               [FromQuery] string searchString = "")
         {
             if (!ModelState.IsValid)
             {
@@ -88,6 +91,7 @@ namespace api.Controllers
             return Ok("User hardware updated.");
         }
 
+        [AllowAnonymous]
         //Check if a user hardware exists
         [HttpGet("exists/{id:int}")]
         public async Task<IActionResult> UserHardwareExists([FromRoute] int id)

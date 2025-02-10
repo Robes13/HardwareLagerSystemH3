@@ -6,10 +6,12 @@ using api.DTOs.NotificationDTOs;
 using api.Helpers.QueryObjects;
 using api.Interfaces;
 using Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
+    [Authorize]
     [Route("api/type")]
     [ApiController]
     public class NotificationController : ControllerBase
