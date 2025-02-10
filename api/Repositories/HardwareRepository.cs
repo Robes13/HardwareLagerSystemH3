@@ -16,12 +16,23 @@ namespace api.Repositories
     public class HardwareRepository : IHardware
     {
         private readonly ApiDbContext _context;
-        public HardwareRepository(ApiDbContext context)
+        private readonly CloudinaryService _cloudinaryService; // Inject CloudinaryService
+
+        public HardwareRepository(ApiDbContext context, CloudinaryService cloudinaryService)
         {
             _context = context;
+            _cloudinaryService = cloudinaryService;  // Initialize CloudinaryService
         }
-        public async Task<Hardware> CreateAsync(Hardware hardwareModel)
+
+        public async Task<Hardware> CreateAsync(Hardware hardwareModel, IFormFile? imageFile = null)
         {
+            // Upload image to Cloudinary if provided
+            if (imageFile != null)
+            {
+                hardwareModel.ImageUrl = await _cloudinaryService.UploadImageAsync(imageFile);
+            }
+
+            // Save the hardware to the database
             await _context.Hardware.AddAsync(hardwareModel);
             await _context.SaveChangesAsync();
             return hardwareModel;
@@ -81,7 +92,7 @@ namespace api.Repositories
                 .FirstOrDefaultAsync(h => h.id == id);
         }
 
-        public async Task<Hardware?> UpdateAsync(int id, HardwareUpdateDTO hardwareDto)
+        public async Task<Hardware?> UpdateAsync(int id, HardwareUpdateDTO hardwareDto, IFormFile? imageFile = null)
         {
             var existingHardware = await _context.Hardware.FirstOrDefaultAsync(x => x.id == id);
 
@@ -90,9 +101,16 @@ namespace api.Repositories
                 return null;
             }
 
+            // Update the hardware properties
             existingHardware.name = hardwareDto.name;
             existingHardware.hardwarestatusid = hardwareDto.hardwarestatusid;
             existingHardware.typeid = hardwareDto.typeid;
+
+            // If an image file is provided, upload to Cloudinary and update the ImageUrl
+            if (imageFile != null)
+            {
+                existingHardware.ImageUrl = await _cloudinaryService.UploadImageAsync(imageFile);
+            }
 
             await _context.SaveChangesAsync();
 

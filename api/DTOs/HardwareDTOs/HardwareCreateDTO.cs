@@ -13,9 +13,9 @@ namespace DTOs.HardwareDTOs
         public string name { get; set; } = string.Empty;
 
         [Required]
-        public int hardwarestatusid { get; set; }
+        public string hardwarestatusid { get; set; }
 
         [Required]
-        public int typeid { get; set; }
+        public string typeid { get; set; }
     }
 }

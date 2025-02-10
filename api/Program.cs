@@ -29,6 +29,7 @@ builder.Services.AddScoped<IUserHardware, UserHardwareRepository>();
 builder.Services.AddScoped<INotification, NotificationRepository>();
 builder.Services.AddScoped<EmailCodeGenerator>();
 builder.Services.AddScoped<EmailCodeSender>();
+builder.Services.AddScoped<CloudinaryService>();
 builder.Services.AddControllers().AddNewtonsoftJson(Options =>
 {
     Options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;

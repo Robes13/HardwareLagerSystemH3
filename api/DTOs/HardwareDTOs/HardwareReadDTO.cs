@@ -15,6 +15,7 @@ namespace DTOs.HardwareDTOs
         public string? hardwarestatus { get; set; }
         public string? type { get; set; }
         public List<string> hardwarecategories { get; set; } = new List<string>();
+        public string? ImageUrl { get; set; }
 
     }
 }

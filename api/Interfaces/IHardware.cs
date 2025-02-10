@@ -12,8 +12,8 @@ namespace api.Interfaces
     {
         Task<List<Hardware>> GetAllAsync(HardwareQueryObject query);
         Task<Hardware?> GetByIdAsync(int id);
-        Task<Hardware> CreateAsync(Hardware hardwareModel);
-        Task<Hardware?> UpdateAsync(int id, HardwareUpdateDTO hardwareDto);
+        Task<Hardware> CreateAsync(Hardware hardwareModel, IFormFile? imageFile = null);
+        Task<Hardware?> UpdateAsync(int id, HardwareUpdateDTO hardwareDto, IFormFile? imageFile = null);
         Task<Hardware?> DeleteAsync(int id);
         Task<bool> ExistsAsync(int id);
     }
