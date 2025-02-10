@@ -3,6 +3,8 @@ using api.DTOs.UserHardwareDTOs;
 using api.Interfaces;
 using api.Mappers;
 using api.Models;
+using DTOs.HardwareDTOs;
+using Mappers;
 using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 using System;
@@ -46,33 +48,62 @@ public class UserHardwareRepository : IUserHardware
         return _context.UserHardware.AnyAsync(uh => uh.id == UserHardwareId);
     }
 
-    public async Task<List<Hardware>> GetAvailableHardware(List<int> categoryIds, List<int> typeIds, int weeks, string searchString)
+    public async Task<List<HardwareReadDTO>> GetAvailableHardware(
+       List<int>? categoryIds,
+       List<int>? typeIds,
+       string? searchString,
+       DateTime startDate,
+       DateTime endDate)
     {
-        // Calculate the start date based on weeks
-        DateTime startDate = DateTime.UtcNow.AddDays(weeks * 7);
+        var typeIdsParam = typeIds?.Any() == true ? string.Join(",", typeIds) : null;
+        var categoryIdsParam = categoryIds?.Any() == true ? string.Join(",", categoryIds) : null;
 
-        // Raw MySQL Query
         string sqlQuery = @"
-            SELECT h.*
-            FROM Hardware h
-            LEFT JOIN UserHardware uh ON h.id = uh.hardwareid AND uh.isRented = true
-            WHERE (uh.id IS NULL OR uh.endDate < @startDate)
-            AND h.typeid IN (" + string.Join(",", typeIds) + @")
-            AND h.id IN (
-                SELECT hc.hardwareid 
-                FROM HardwareCategory hc 
-                WHERE hc.categoryid IN (" + string.Join(",", categoryIds) + @")
-            )
-            AND h.name LIKE CONCAT('%', @searchString, '%');";
+    SELECT DISTINCT h.*
+    FROM Hardware h
+    LEFT JOIN UserHardware uh 
+        ON h.id = uh.hardwareid 
+        AND uh.isRented = true 
+        AND (uh.startDate <= @endDate)
+        AND (uh.endDate >= @startDate)
+    LEFT JOIN HardwareCategory hc 
+        ON h.id = hc.hardwareid
+    WHERE
+        (uh.id IS NULL)
+        AND (
+            (@typeIds IS NULL OR h.typeid IN (@typeIds))
+            OR 
+            (@categoryIds IS NULL OR hc.categoryid IN (@categoryIds))
+        )
+        AND (@searchString IS NULL OR h.name LIKE CONCAT('%', @searchString, '%'))";
+
 
         // Execute the raw SQL query using EF Core
-        var hardwareList = await _context.Hardware
-            .FromSqlRaw(sqlQuery, new MySqlParameter("@startDate", startDate),
-                                 new MySqlParameter("@searchString", searchString))
-            .ToListAsync();
+        List<Hardware> hardwareList = await _context.Hardware
+    .FromSqlRaw(sqlQuery,
+        new MySqlParameter("@startDate", startDate),
+        new MySqlParameter("@endDate", endDate),
+        new MySqlParameter("@searchString", string.IsNullOrEmpty(searchString) ? DBNull.Value : searchString),
+        new MySqlParameter("@typeIds", typeIds?.Any() == true ? string.Join(",", typeIds) : DBNull.Value),
+        new MySqlParameter("@categoryIds", categoryIds?.Any() == true ? string.Join(",", categoryIds) : DBNull.Value)
+    )
+    .Include(h => h.hardwarestatus)
+    .Include(h => h.type)
+    .Include(h => h.HardwareCategories)
+        .ThenInclude(hc => hc.category)
+    .ToListAsync();
 
-        return hardwareList;
+
+        List<HardwareReadDTO> result = new List<HardwareReadDTO>();
+        foreach (Hardware hardware in hardwareList)
+        {
+            result.Add(hardware.ToHardwareDto());
+        }
+
+        return result;
     }
+
+
 
     public Task<List<UserHardware>> GetUserHardwareByUserId(int userId)
     {

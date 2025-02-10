@@ -26,19 +26,28 @@ namespace api.Controllers
         }
 
         [HttpGet("available")]
-        public async Task<IActionResult> GetAvailableHardware(
-       [FromQuery] List<int> categoryIds,
-       [FromQuery] List<int> typeIds,
-       [FromQuery] int weeks,
-       [FromQuery] string searchString = "")
+        public async Task<IActionResult> GetAvailableHardware([FromQuery] List<int>? categoryIds, [FromQuery] List<int>? typeIds, [FromQuery] int weeks, [FromQuery] string? searchString, [FromQuery] DateTime startDate)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var availableHardware = await _userHardware.GetAvailableHardware(categoryIds, typeIds, weeks, searchString);
+
+            // Calculate the end date based on the provided startDate and weeks
+            DateTime finalEndDate = startDate.AddDays(weeks * 7);
+
+            var availableHardware = await _userHardware.GetAvailableHardware(
+                categoryIds,
+                typeIds,
+                searchString,
+                startDate,
+                finalEndDate
+            );
+
             return Ok(availableHardware);
         }
+
+
 
         //Get hardwares by id
         [HttpGet("{id:int}")]
