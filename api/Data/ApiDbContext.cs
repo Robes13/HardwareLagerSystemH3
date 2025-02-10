@@ -35,9 +35,9 @@ namespace api.Data
                 .HasForeignKey(uh => uh.hardwareid);
 
             modelBuilder.Entity<Notification>()
-                .HasOne(n => n.userHardware)
-                .WithMany(uh => uh.Notifications)
-                .HasForeignKey(n => n.userhardwareid);
+                .HasOne(n => n.user)
+                .WithMany(uh => uh.notifications)
+                .HasForeignKey(n => n.userid);
             // Define the relationship between HardwareCategory and Hardware
             modelBuilder.Entity<HardwareCategory>()
                 .HasOne(hc => hc.hardware)  // Each HardwareCategory has one Hardware

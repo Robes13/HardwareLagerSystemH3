@@ -15,7 +15,7 @@ namespace Mappers
             return new NotificationReadDTO
             {
                 id = notificationModel.id,
-                userhardwareid = notificationModel.userhardwareid,
+                userid = notificationModel.userid,
                 message = notificationModel.message,
             };
         }
@@ -23,7 +23,7 @@ namespace Mappers
         {
             return new Notification
             {
-                userhardwareid = notificationDto.userhardwareid,
+                userid = notificationDto.userid,
                 message = notificationDto.message
             };
         }

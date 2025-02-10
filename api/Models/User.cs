@@ -22,11 +22,11 @@ namespace api.Models
         [Required]
         public string hashedpassword { get; set; } = string.Empty;
 
-        #pragma warning disable CS8618
+#pragma warning disable CS8618
         [ForeignKey("Email")]
         public int EmailId { get; set; }
         public Email Email { get; set; }
-        #pragma warning restore CS8618
+#pragma warning restore CS8618
 
 
         [Required]
@@ -41,5 +41,8 @@ namespace api.Models
         public bool isdeleted { get; set; } = false;
 
         public DateTime? datedeleted { get; set; } = null;
+
+        public ICollection<Notification> notifications { get; set; } = new List<Notification>();
+
     }
 }

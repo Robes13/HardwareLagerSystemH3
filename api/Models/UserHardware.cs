@@ -20,6 +20,5 @@ namespace api.Models
         public DateTime endDate { get; set; }
         public DateTime deliveryDate { get; set; }
         public bool isRented { get; set; } = false;
-        public ICollection<Notification> Notifications { get; set; } = new List<Notification>();
     }
 }

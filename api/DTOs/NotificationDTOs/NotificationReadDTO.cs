@@ -8,7 +8,7 @@ namespace DTOs.NotificationDTOs
     public class NotificationReadDTO
     {
         public int id { get; set; }
-        public int userhardwareid { get; set; }
+        public int userid { get; set; }
         public string message { get; set; } = string.Empty;
     }
 }
