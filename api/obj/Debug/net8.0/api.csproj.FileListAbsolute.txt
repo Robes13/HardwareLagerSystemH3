@@ -1,5 +1,3 @@
-C:\Users\zbc23rope\Desktop\HardwareLager Repo\HardwareLagerSystemH3\api\bin\Debug\net8.0\appsettings.Development.json
-C:\Users\zbc23rope\Desktop\HardwareLager Repo\HardwareLagerSystemH3\api\bin\Debug\net8.0\appsettings.json
 C:\Users\zbc23rope\Desktop\HardwareLager Repo\HardwareLagerSystemH3\api\bin\Debug\net8.0\api.staticwebassets.endpoints.json
 C:\Users\zbc23rope\Desktop\HardwareLager Repo\HardwareLagerSystemH3\api\bin\Debug\net8.0\api.exe
 C:\Users\zbc23rope\Desktop\HardwareLager Repo\HardwareLagerSystemH3\api\bin\Debug\net8.0\api.deps.json
@@ -318,3 +316,21 @@ C:\Users\jonas\Documents\GitHub\HardwareLagerSystemH3\api\obj\Debug\net8.0\api.c
 C:\Users\jonas\Documents\GitHub\HardwareLagerSystemH3\api\obj\Debug\net8.0\api.genruntimeconfig.cache
 C:\Users\jonas\Documents\GitHub\HardwareLagerSystemH3\api\obj\Debug\net8.0\ref\api.dll
 C:\Users\jonas\Documents\GitHub\HardwareLagerSystemH3\api\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\zbc23rope\Desktop\HardwareLager Repo\HardwareLagerSystemH3\api\bin\Debug\net8.0\BCrypt.Net-Next.dll
+C:\Users\zbc23rope\Desktop\HardwareLager Repo\HardwareLagerSystemH3\api\bin\Debug\net8.0\CloudinaryDotNet.dll
+C:\Users\zbc23rope\Desktop\HardwareLager Repo\HardwareLagerSystemH3\api\bin\Debug\net8.0\dotenv.net.dll
+C:\Users\zbc23rope\Desktop\HardwareLager Repo\HardwareLagerSystemH3\api\bin\Debug\net8.0\HtmlAgilityPack.dll
+C:\Users\zbc23rope\Desktop\HardwareLager Repo\HardwareLagerSystemH3\api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\zbc23rope\Desktop\HardwareLager Repo\HardwareLagerSystemH3\api\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\zbc23rope\Desktop\HardwareLager Repo\HardwareLagerSystemH3\api\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\zbc23rope\Desktop\HardwareLager Repo\HardwareLagerSystemH3\api\bin\Debug\net8.0\Microsoft.Bcl.Memory.dll
+C:\Users\zbc23rope\Desktop\HardwareLager Repo\HardwareLagerSystemH3\api\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\zbc23rope\Desktop\HardwareLager Repo\HardwareLagerSystemH3\api\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\zbc23rope\Desktop\HardwareLager Repo\HardwareLagerSystemH3\api\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\zbc23rope\Desktop\HardwareLager Repo\HardwareLagerSystemH3\api\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\zbc23rope\Desktop\HardwareLager Repo\HardwareLagerSystemH3\api\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\zbc23rope\Desktop\HardwareLager Repo\HardwareLagerSystemH3\api\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\zbc23rope\Desktop\HardwareLager Repo\HardwareLagerSystemH3\api\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\zbc23rope\Desktop\HardwareLager Repo\HardwareLagerSystemH3\api\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+C:\Users\zbc23rope\Desktop\HardwareLager Repo\HardwareLagerSystemH3\api\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\zbc23rope\Desktop\HardwareLager Repo\HardwareLagerSystemH3\api\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

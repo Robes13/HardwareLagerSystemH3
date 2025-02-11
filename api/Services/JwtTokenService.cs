@@ -16,27 +16,35 @@ public class JwtTokenService
         _configuration = configuration;
     }
 
-    public string GenerateToken(string userId, string role)
-    {
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-        var claims = new[]
+        public string GenerateToken(string userId, string role)
         {
-            new Claim(JwtRegisteredClaimNames.Sub, userId),
-            new Claim(ClaimTypes.Role, role),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-        };
+            string jwtKey = Environment.GetEnvironmentVariable("JWT_KEY");
 
-        var token = new JwtSecurityToken(
-            issuer: _configuration["Jwt:Issuer"],
-            audience: _configuration["Jwt:Audience"],
-            claims: claims,
-            expires: DateTime.UtcNow.AddHours(1),
-            signingCredentials: credentials
-        );
+            if (string.IsNullOrEmpty(jwtKey))
+            {
+                throw new InvalidOperationException("JWT_KEY is not set. Check your environment variables.");
+            }
 
-        return new JwtSecurityTokenHandler().WriteToken(token);
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
+
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var claims = new List<Claim>
+    {
+        new Claim(ClaimTypes.NameIdentifier, userId),
+        new Claim(ClaimTypes.Role, role)
+    };
+
+            var token = new JwtSecurityToken(
+                issuer: Environment.GetEnvironmentVariable("JWT_ISSUER"),
+                audience: Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
+                claims: claims,
+                expires: DateTime.UtcNow.AddHours(1),
+                signingCredentials: credentials
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
     }
-}
 }

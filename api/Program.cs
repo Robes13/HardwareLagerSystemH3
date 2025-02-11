@@ -15,8 +15,9 @@ using dotenv.net;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Load environment variables from .env
-DotEnv.Load();
+DotEnv.Load(options: new DotEnvOptions(envFilePaths: new[] { ".env" }));
+builder.Configuration.AddEnvironmentVariables(); // Loads the environment variables
+
 
 // Retrieve the connection string from the environment variables
 var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
@@ -43,6 +44,10 @@ builder.Services.AddScoped<EmailCodeGenerator>();
 builder.Services.AddScoped<EmailCodeSender>();
 builder.Services.AddScoped<JwtTokenService>();
 // Configure JWT Authentication
+string jwtIssuer = builder.Configuration["JWT_ISSUER"];
+string jwtKey = builder.Configuration["JWT_KEY"];
+string jwtAudience = builder.Configuration["JWT_AUDIENCE"];
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -52,9 +57,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER"),
-            ValidAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_KEY")))
+            ValidIssuer = jwtIssuer,
+            ValidAudience = jwtAudience,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
         };
     });
 
