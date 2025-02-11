@@ -28,11 +28,6 @@ namespace api.Controllers
 
         [AllowAnonymous]
         [HttpGet("available")]
-        public async Task<IActionResult> GetAvailableHardware(
-               [FromQuery] List<int> categoryIds,
-               [FromQuery] List<int> typeIds,
-               [FromQuery] int weeks,
-               [FromQuery] string searchString = "")
         public async Task<IActionResult> GetAvailableHardware([FromQuery] List<int>? categoryIds, [FromQuery] List<int>? typeIds, [FromQuery] int weeks, [FromQuery] string? searchString, [FromQuery] DateTime startDate)
         {
             if (!ModelState.IsValid)
