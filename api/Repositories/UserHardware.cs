@@ -10,7 +10,6 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mail;
 using System.Threading.Tasks;
 
 public class UserHardwareRepository : IUserHardware
@@ -25,22 +24,34 @@ public class UserHardwareRepository : IUserHardware
 
     public async Task<ReadUserHardwareDTO?> AddUserHardware(CreateUserHardwareDTO userHardware)
     {
-        //Check if the user exists
-        UserHardware userHardwareToLoan = userHardware.Rent();
-        var user = await _context.User.FirstOrDefaultAsync(u => u.id == userHardwareToLoan.userid);
-        if (user == null)
+        try
         {
-            return null;
+            // Use the mapping extension method
+            UserHardware userHardwareToLoan = userHardware.MapToUserHardware();
+            var user = await _context.User.FirstOrDefaultAsync(u => u.id == userHardwareToLoan.userid);
+            if (user == null)
+            {
+                return null;  // Or handle this scenario appropriately
+            }
+
+            // Check if hardware exists
+            var hardware = await _context.Hardware.FirstOrDefaultAsync(h => h.id == userHardwareToLoan.hardwareid);
+            if (hardware == null)
+            {
+                return null;  // Or handle accordingly
+            }
+
+            await _context.UserHardware.AddAsync(userHardwareToLoan);
+            await _context.SaveChangesAsync();
+
+            // Return using the mapping extension method
+            return userHardwareToLoan.MapToReadUserHardwareDTO();
         }
-        //Check if the hardware exists
-        var hardware = await _context.Hardware.FirstOrDefaultAsync(h => h.id == userHardwareToLoan.hardwareid);
-        if (hardware == null)
+        catch (Exception ex)
         {
-            return null;
+            // Log the exception if needed
+            throw new InvalidOperationException("Error occurred while adding user hardware", ex);
         }
-        await _context.UserHardware.AddAsync(userHardwareToLoan);
-        await _context.SaveChangesAsync();
-        return userHardwareToLoan.Read();
     }
 
     public Task<bool> Exists(int UserHardwareId)
@@ -77,22 +88,20 @@ public class UserHardwareRepository : IUserHardware
         )
         AND (@searchString IS NULL OR h.name LIKE CONCAT('%', @searchString, '%'))";
 
-
         // Execute the raw SQL query using EF Core
         List<Hardware> hardwareList = await _context.Hardware
-    .FromSqlRaw(sqlQuery,
-        new MySqlParameter("@startDate", startDate),
-        new MySqlParameter("@endDate", endDate),
-        new MySqlParameter("@searchString", string.IsNullOrEmpty(searchString) ? DBNull.Value : searchString),
-        new MySqlParameter("@typeIds", typeIds?.Any() == true ? string.Join(",", typeIds) : DBNull.Value),
-        new MySqlParameter("@categoryIds", categoryIds?.Any() == true ? string.Join(",", categoryIds) : DBNull.Value)
-    )
-    .Include(h => h.hardwarestatus)
-    .Include(h => h.type)
-    .Include(h => h.HardwareCategories)
-        .ThenInclude(hc => hc.category)
-    .ToListAsync();
-
+            .FromSqlRaw(sqlQuery,
+                new MySqlParameter("@startDate", startDate),
+                new MySqlParameter("@endDate", endDate),
+                new MySqlParameter("@searchString", string.IsNullOrEmpty(searchString) ? DBNull.Value : searchString),
+                new MySqlParameter("@typeIds", typeIds?.Any() == true ? string.Join(",", typeIds) : DBNull.Value),
+                new MySqlParameter("@categoryIds", categoryIds?.Any() == true ? string.Join(",", categoryIds) : DBNull.Value)
+            )
+            .Include(h => h.hardwarestatus)
+            .Include(h => h.type)
+            .Include(h => h.HardwareCategories)
+                .ThenInclude(hc => hc.category)
+            .ToListAsync();
 
         List<HardwareReadDTO> result = new List<HardwareReadDTO>();
         foreach (Hardware hardware in hardwareList)
@@ -102,8 +111,6 @@ public class UserHardwareRepository : IUserHardware
 
         return result;
     }
-
-
 
     public Task<List<UserHardware>> GetUserHardwareByUserId(int userId)
     {
@@ -119,12 +126,12 @@ public class UserHardwareRepository : IUserHardware
         }
 
         existingUserHardware.isRented = userHardware.isRented;
-        existingUserHardware.startDate = userHardware.startDate;
-        existingUserHardware.endDate = userHardware.endDate;
+        // Convert the string dates to DateTime using the conversion methods
+        existingUserHardware.startDate = userHardware.GetStartDateTime();
+        existingUserHardware.endDate = userHardware.GetEndDateTime();
         existingUserHardware.deliveryDate = userHardware.deliveryDate;
 
         await _context.SaveChangesAsync();
         return existingUserHardware;
     }
-
 }

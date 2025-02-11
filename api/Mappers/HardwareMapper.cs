@@ -31,7 +31,7 @@ namespace Mappers
             {
                 name = hardwareDto.name,
                 hardwarestatusid = Convert.ToInt32(hardwareDto.hardwarestatusid),
-                typeid = Convert.ToInt32(hardwareDto.typeid)
+                typeid = Convert.ToInt32(hardwareDto.typeid),
             };
         }
     }

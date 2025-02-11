@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
 using api.DTOs.UserHardwareDTOs;
@@ -47,9 +46,7 @@ namespace api.Controllers
             return Ok(availableHardware);
         }
 
-
-
-        //Get hardwares by id
+        // Get hardware by user id
         [HttpGet("{id:int}")]
         public async Task<ActionResult<UserHardware>> GetByUserId(int id)
         {
@@ -65,7 +62,7 @@ namespace api.Controllers
             return Ok(userHardware);
         }
 
-        //Add a new hardware to a user
+        // Add a new hardware to a user
         [HttpPost]
         public async Task<ActionResult<ReadUserHardwareDTO>> AddUserHardware(CreateUserHardwareDTO userHardwareDto)
         {
@@ -73,14 +70,19 @@ namespace api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            await _userHardware.AddUserHardware(userHardwareDto);
+            // Use the mapping extension in the repository (which calls MapToUserHardware)
+            var result = await _userHardware.AddUserHardware(userHardwareDto);
+            if (result == null)
+            {
+                return NotFound("User or hardware not found.");
+            }
+            // Save is already called in the repository, but if you need an extra save, you can leave this here.
             await _context.SaveChangesAsync();
 
-            return Ok(userHardwareDto.Rent().Read());
+            return Ok(result);
         }
 
-
-        //Update a user hardware
+        // Update a user hardware
         [HttpPut("{id:int}")]
         public async Task<IActionResult?> UpdateUserHardware([FromRoute] int id, UpdateUserHardwareDTO userHardware)
         {
@@ -97,7 +99,7 @@ namespace api.Controllers
             return Ok("User hardware updated.");
         }
 
-        //Check if a user hardware exists
+        // Check if a user hardware exists
         [HttpGet("exists/{id:int}")]
         public async Task<IActionResult> UserHardwareExists([FromRoute] int id)
         {
