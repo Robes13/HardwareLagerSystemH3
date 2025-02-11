@@ -11,19 +11,24 @@ namespace api.Services
     {
         public async Task<bool> SendEmail(string mailAddress, string subject, string body, bool html)
         {// SMTP Server Configuration
-            SmtpClient smtpClient = new SmtpClient("mail.itdepot.dk")
+            string smtpHost = Environment.GetEnvironmentVariable("SMTP_HOST");
+            int smtpPort = int.Parse(Environment.GetEnvironmentVariable("SMTP_PORT"));
+            string smtpUser = Environment.GetEnvironmentVariable("SMTP_USER");
+            string smtpPass = Environment.GetEnvironmentVariable("SMTP_PASS");
+
+            SmtpClient smtpClient = new SmtpClient(smtpHost)
             {
-                Port = 587,
+                Port = smtpPort,
                 EnableSsl = true, // For 587, some providers require EnableSsl = false and StartTLS enabled
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential("system@itdepot.dk", "vlN?&*7?6pM?") // Replace with environment variables
+                Credentials = new NetworkCredential(smtpUser, smtpPass) // Replace with environment variables
             };
 
 
             // Email Options
             MailMessage mailMessage = new MailMessage
             {
-                From = new MailAddress("system@itdepot.dk", "IT Depot System"),
+                From = new MailAddress(smtpUser, "IT Depot System"),
                 Subject = subject,
                 Body = body,
                 IsBodyHtml = html

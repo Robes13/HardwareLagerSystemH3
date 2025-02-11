@@ -63,7 +63,6 @@ namespace api.Controllers
 
             return Ok(hardware.ToHardwareDto());
         }
-        
         [HttpPost]
         [Route("CreateHardware")]
         public async Task<IActionResult> Create([FromForm] HardwareCreateDTO hardwareDto, [FromForm] IFormFile? imageFile)

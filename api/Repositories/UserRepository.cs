@@ -171,8 +171,11 @@ namespace api.Repositories
 
         public async Task<User?> GetByUsernameAsync(string username)
         {
-            return await _context.User.FirstOrDefaultAsync(u => u.username == username);
+            return await _context.User
+                                 .Include(u => u.Role)  // Include the Role navigation property
+                                 .FirstOrDefaultAsync(u => u.username == username);
         }
+
 
         public async Task<User?> GetByEmailAsync(int emailId)
         {

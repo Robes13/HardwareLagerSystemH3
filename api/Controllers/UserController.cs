@@ -8,6 +8,7 @@ using api.DTOs.UserDTOs;
 using api.Interfaces;
 using api.Mappers;
 using api.Models;
+using api.Services;
 using DTOs.UserDTOs;
 using Mappers;
 using Microsoft.AspNetCore.Authorization;
@@ -23,11 +24,13 @@ namespace api.Controllers
     {
         private readonly ApiDbContext _context;
         private readonly IUser _iuser;
+        private readonly JwtTokenService _jwtTokenService;
 
-        public UserController(ApiDbContext context, IUser iuser)
+        public UserController(ApiDbContext context, IUser iuser, JwtTokenService jwtTokenService)
         {
             _context = context;
             _iuser = iuser;
+            _jwtTokenService = jwtTokenService;
         }
 
         [AllowAnonymous]
@@ -154,18 +157,21 @@ namespace api.Controllers
                 return BadRequest("Username and Password are required.");
             }
 
-            var user = await _iuser.GetByUsernameAsync(authenticateDTO.Username);
+            var user = await _iuser.GetByUsernameAsync(authenticateDTO.Username);  // Ensure this method handles role loading
 
-            if (user == null || !BCrypt.Net.BCrypt.Verify(authenticateDTO.Password, user.hashedpassword))
+            if (user == null || user.Role == null || !BCrypt.Net.BCrypt.Verify(authenticateDTO.Password, user.hashedpassword))
             {
-                return Unauthorized("Invalid Username or password.");
+                return Unauthorized("Invalid Username, Password, or Role is not assigned.");
             }
 
+            string token = _jwtTokenService.GenerateToken(user.id.ToString(), user.Role.id.ToString());
             return Ok(new
             {
                 message = "Login successful!",
+                token = token
             });
         }
+
 
     }
 }

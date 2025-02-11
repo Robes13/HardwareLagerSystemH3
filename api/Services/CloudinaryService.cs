@@ -10,10 +10,14 @@ public class CloudinaryService
 
     public CloudinaryService()
     {
+        string cloudServer = Environment.GetEnvironmentVariable("CLOUD_SERVER");
+        string cloudPass = Environment.GetEnvironmentVariable("CLOUD_PASS");
+        string cloudKey = Environment.GetEnvironmentVariable("CLOUD_KEY");
+
         var account = new Account(
-            "dtcl3sqeb",
-            "277565946981213",
-            "UqQiTaS4fvs5KxbwTApfWSh34AI"
+            cloudServer,
+            cloudPass,
+            cloudKey
         );
 
         _cloudinary = new Cloudinary(account);

@@ -66,6 +66,7 @@ namespace api.Controllers
         }
 
         // Add a new hardware to a user
+        [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult<ReadUserHardwareDTO>> AddUserHardware(CreateUserHardwareDTO userHardwareDto)
         {
