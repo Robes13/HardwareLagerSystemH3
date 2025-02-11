@@ -13,7 +13,7 @@ namespace api.Services
         {// SMTP Server Configuration
             SmtpClient smtpClient = new SmtpClient("mail.itdepot.dk")
             {
-                Port = 587, // Try this instead of 465
+                Port = 587,
                 EnableSsl = true, // For 587, some providers require EnableSsl = false and StartTLS enabled
                 UseDefaultCredentials = false,
                 Credentials = new NetworkCredential("system@itdepot.dk", "vlN?&*7?6pM?") // Replace with environment variables

@@ -7,7 +7,7 @@ namespace api.DTOs.NotificationDTOs
 {
     public class NotificationCreateDTO
     {
-        public int userhardwareid { get; set; }
+        public int userid { get; set; }
         public string message { get; set; } = string.Empty;
     }
 }

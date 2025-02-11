@@ -20,7 +20,8 @@ namespace Mappers
                 hardwarecategories = hardwareModel.HardwareCategories?
                     .Select(c => c.category.name)
                     .Where(name => name != null)
-                    .ToList() ?? new List<string>()
+                    .ToList() ?? new List<string>(),
+                ImageUrl = hardwareModel.ImageUrl
             };
         }
 
@@ -29,8 +30,8 @@ namespace Mappers
             return new Hardware
             {
                 name = hardwareDto.name,
-                hardwarestatusid = hardwareDto.hardwarestatusid,
-                typeid = hardwareDto.typeid
+                hardwarestatusid = Convert.ToInt32(hardwareDto.hardwarestatusid),
+                typeid = Convert.ToInt32(hardwareDto.typeid),
             };
         }
     }

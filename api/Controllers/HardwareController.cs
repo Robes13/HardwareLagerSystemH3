@@ -10,6 +10,7 @@ using DTOs.HardwareDTOs;
 using Mappers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace api.Controllers
 {
@@ -21,11 +22,14 @@ namespace api.Controllers
         private readonly IHardware _hardwareRepo;
         private readonly ITypes _typeRepo;
         private readonly IHardwareStatus _hardwarestatusRepo;
-        public HardwareController(IHardware hardwareRepo, ITypes typeRepo, IHardwareStatus hardwarestatusRepo)
+        private readonly CloudinaryService _cloudinaryService; // Inject CloudinaryService
+
+        public HardwareController(IHardware hardwareRepo, ITypes typeRepo, IHardwareStatus hardwarestatusRepo, CloudinaryService cloudinaryService)
         {
             _hardwareRepo = hardwareRepo;
             _typeRepo = typeRepo;
             _hardwarestatusRepo = hardwarestatusRepo;
+            _cloudinaryService = cloudinaryService; // Initialize CloudinaryService
         }
 
         [AllowAnonymous]
@@ -42,7 +46,6 @@ namespace api.Controllers
 
             return Ok(hardwareDto);
         }
-
         [AllowAnonymous]
         [HttpGet]
         [Route("GetByIdHardware/{id:int}")]
@@ -60,27 +63,36 @@ namespace api.Controllers
 
             return Ok(hardware.ToHardwareDto());
         }
-
+        
         [HttpPost]
         [Route("CreateHardware")]
-        public async Task<IActionResult> Create([FromBody] HardwareCreateDTO hardwareDto)
+        public async Task<IActionResult> Create([FromForm] HardwareCreateDTO hardwareDto, [FromForm] IFormFile? imageFile)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            bool hardwarestatusExists = await _hardwarestatusRepo.ExistsAsync(hardwareDto.hardwarestatusid);
+            bool hardwarestatusExists = await _hardwarestatusRepo.ExistsAsync(Convert.ToInt32(hardwareDto.hardwarestatusid));
             if (!hardwarestatusExists)
             {
                 return NotFound("Invalid HardwareStatus ID.");
             }
 
-            bool typeExists = await _typeRepo.ExistsAsync(hardwareDto.typeid);
+            bool typeExists = await _typeRepo.ExistsAsync(Convert.ToInt32(hardwareDto.typeid));
             if (!typeExists)
             {
                 return NotFound("Invalid Type ID.");
             }
 
+            // Handle image upload if file is provided
+            string imageUrl = string.Empty;
+            if (imageFile != null)
+            {
+                imageUrl = await _cloudinaryService.UploadImageAsync(imageFile);
+            }
+
             var hardwareModel = hardwareDto.ToHardwareFromCreate();
+            hardwareModel.ImageUrl = imageUrl;  // Save the image URL
+
             await _hardwareRepo.CreateAsync(hardwareModel);
 
             return Ok("Hardware Added!");
@@ -88,7 +100,7 @@ namespace api.Controllers
 
         [HttpPut]
         [Route("UpdateHardware/{id:int}")]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] HardwareUpdateDTO updateDto)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromForm] HardwareUpdateDTO updateDto, [FromForm] IFormFile? imageFile)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -105,6 +117,13 @@ namespace api.Controllers
                 return NotFound("Invalid Type ID.");
             }
 
+            // Handle image upload if file is provided
+            string imageUrl = string.Empty;
+            if (imageFile != null)
+            {
+                imageUrl = await _cloudinaryService.UploadImageAsync(imageFile);
+            }
+
             var hardwareModel = await _hardwareRepo.UpdateAsync(id, updateDto);
 
             if (hardwareModel == null)
@@ -112,8 +131,16 @@ namespace api.Controllers
                 return NotFound("ID does not match any Hardware");
             }
 
+            // If an image URL was generated, update the hardware model
+            if (!string.IsNullOrEmpty(imageUrl))
+            {
+                hardwareModel.ImageUrl = imageUrl;
+                await _hardwareRepo.UpdateAsync(id, updateDto); // Save the updated hardware model with the new image URL
+            }
+
             return Ok("The Hardware was updated!");
         }
+
         [HttpDelete]
         [Route("DeleteHardware/{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)

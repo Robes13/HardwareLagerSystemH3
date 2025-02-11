@@ -8,9 +8,6 @@ namespace api.DTOs.TypeDTOs
 {
     public class TypeCreateDTO
     {
-        [Required]
-        [MinLength(3, ErrorMessage = "Type must be 3 characters")]
-        [MaxLength(50, ErrorMessage = "Type must be shorter than 50 characters")]
         public string name { get; set; } = string.Empty;
     }
 }

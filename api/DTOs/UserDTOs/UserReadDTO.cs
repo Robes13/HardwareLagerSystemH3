@@ -16,7 +16,7 @@ namespace DTOs.UserDTOs
         public string Fullname { get; set; } = string.Empty;
         public bool IsDeleted { get; set; }
         public int RoleId { get; set; }
-        public RoleReadDTO Role { get; set; } = new RoleReadDTO();  // Use the custom RoleDTO
+        public RoleReadDTO Role { get; set; } = new RoleReadDTO();
         public EmailDTO Email { get; set; } = new EmailDTO();
     }
 }

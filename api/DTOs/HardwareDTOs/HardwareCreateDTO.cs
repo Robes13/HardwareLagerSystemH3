@@ -8,14 +8,8 @@ namespace DTOs.HardwareDTOs
 {
     public class HardwareCreateDTO
     {
-        [Required]
-        [MaxLength(255, ErrorMessage = "Name is longer then 255 characters")]
         public string name { get; set; } = string.Empty;
-
-        [Required]
-        public int hardwarestatusid { get; set; }
-
-        [Required]
-        public int typeid { get; set; }
+        public string hardwarestatusid { get; set; }
+        public string typeid { get; set; }
     }
 }

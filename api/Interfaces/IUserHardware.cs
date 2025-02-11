@@ -5,13 +5,19 @@ using System.Threading.Tasks;
 using api.DTOs.UserHardwareDTOs;
 using api.Helpers.QueryObjects;
 using api.Models;
+using DTOs.HardwareDTOs;
 
 namespace api.Interfaces
 {
     public interface IUserHardware
     {
-        Task<List<Hardware>> GetAvailableHardware(List<int> categoryIds, List<int> typeIds, int weeks, string searchString);
-        Task<List<UserHardware>> GetUserHardwareByUserId(int userId);
+        Task<List<HardwareReadDTO>> GetAvailableHardware(
+               List<int>? categoryIds,
+               List<int>? typeIds,
+               string? searchString,
+               DateTime startDate,
+               DateTime endDate);         
+               Task<List<UserHardware>> GetUserHardwareByUserId(int userId);
         Task<ReadUserHardwareDTO?> AddUserHardware(CreateUserHardwareDTO userHardware);
         Task<UserHardware?> UpdateUserHardware(int id, UpdateUserHardwareDTO userHardware);
         Task<bool> Exists(int UserHardwareId);

@@ -43,9 +43,9 @@ namespace api.Repositories
         {
             var notifications = _context.Notification.AsQueryable();
 
-            if (query.userhardwareid.HasValue)
+            if (query.userid.HasValue)
             {
-                notifications = notifications.Where(c => c.userhardwareid == query.userhardwareid);
+                notifications = notifications.Where(c => c.userid == query.userid);
             }
 
             var skipNumber = (query.PageNumber - 1) * query.PageSize;

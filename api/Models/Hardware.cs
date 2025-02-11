@@ -26,6 +26,8 @@ namespace api.Models
         public int typeid { get; set; }
         public Types type { get; set; } = null!;
 
+        public string? ImageUrl { get; set; }
+
         public List<HardwareCategory> HardwareCategories { get; set; } = new List<HardwareCategory>();
     }
 }

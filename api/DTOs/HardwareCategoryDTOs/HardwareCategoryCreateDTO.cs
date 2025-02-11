@@ -8,10 +8,7 @@ namespace DTOs.HardwareCategoryDTOs
 {
     public class HardwareCategoryCreateDTO
     {
-        [Required]
         public int hardwareid { get; set; }
-
-        [Required]
         public int categoryid { get; set; }
     }
 }
