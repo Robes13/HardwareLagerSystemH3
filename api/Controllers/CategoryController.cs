@@ -6,10 +6,12 @@ using api.DTOs.CategoryDTOs;
 using api.Helpers.QueryObjects;
 using api.Interfaces;
 using Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
+    [Authorize]
     [Route("api/category")]
     [ApiController]
     public class CategoryController : ControllerBase
@@ -20,6 +22,7 @@ namespace api.Controllers
             _categoryRepo = categoryRepo;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("GetAllCategories")]
         public async Task<IActionResult> GetAll([FromQuery] CategoryQueryObject query)
@@ -34,6 +37,7 @@ namespace api.Controllers
             return Ok(categoryDto);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("GetByIdCategories/{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)

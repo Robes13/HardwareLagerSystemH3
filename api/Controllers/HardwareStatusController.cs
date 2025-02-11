@@ -6,10 +6,12 @@ using api.DTOs.HardwareStatusDTOs;
 using api.Interfaces;
 using api.Mappers;
 using api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
+    [Authorize]
     [Route("api/hardwarestatus")]
     [ApiController]
 
@@ -20,11 +22,13 @@ namespace api.Controllers
         {
             _hardwareStatus = hardwareStatus;
         }
+
+        [AllowAnonymous]
         [HttpGet]
         [Route("GetById/{id:int}")]
         public async Task<ActionResult<HardwareStatus>> GetById(int id)
         {
-             if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -35,11 +39,13 @@ namespace api.Controllers
             }
             return hardwareStatus;
         }
+
+        [AllowAnonymous]
         [HttpGet]
         [Route("GetAll")]
         public async Task<ActionResult<IEnumerable<HardwareStatus>>> GetAll()
         {
-             if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -47,9 +53,9 @@ namespace api.Controllers
         }
         [HttpPost]
         [Route("CreateHardwareStatus")]
-        public async Task<ActionResult> Create([FromBody]HardwareStatusUpdateDTO hardwareStatus)
+        public async Task<ActionResult> Create([FromBody] HardwareStatusUpdateDTO hardwareStatus)
         {
-             if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -63,7 +69,7 @@ namespace api.Controllers
         [Route("UpdateHardwareStatus/{id:int}")]
         public async Task<ActionResult> Update(int id, [FromBody] HardwareStatusUpdateDTO hardwareStatus)
         {
-             if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -79,7 +85,7 @@ namespace api.Controllers
         [Route("DeleteHardwareStatus/{id:int}")]
         public async Task<ActionResult> Delete(int id)
         {
-             if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }

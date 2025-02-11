@@ -8,11 +8,13 @@ using api.Interfaces;
 using api.Repositories;
 using DTOs.HardwareDTOs;
 using Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 
 namespace api.Controllers
 {
+    [Authorize]
     [Route("api/hardware")]
     [ApiController]
     public class HardwareController : ControllerBase
@@ -30,6 +32,7 @@ namespace api.Controllers
             _cloudinaryService = cloudinaryService; // Initialize CloudinaryService
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("GetAllHardwares")]
         public async Task<IActionResult> GetAll([FromQuery] HardwareQueryObject query)
@@ -43,7 +46,7 @@ namespace api.Controllers
 
             return Ok(hardwareDto);
         }
-
+        [AllowAnonymous]
         [HttpGet]
         [Route("GetByIdHardware/{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
@@ -60,7 +63,7 @@ namespace api.Controllers
 
             return Ok(hardware.ToHardwareDto());
         }
-
+        
         [HttpPost]
         [Route("CreateHardware")]
         public async Task<IActionResult> Create([FromForm] HardwareCreateDTO hardwareDto, [FromForm] IFormFile? imageFile)

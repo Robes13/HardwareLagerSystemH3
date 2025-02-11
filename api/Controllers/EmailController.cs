@@ -11,9 +11,11 @@ using api.Mappers;
 using api.DTOs.EmailDTOs;
 using System.Text.RegularExpressions;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace api.Controllers
 {
+    [Authorize]
     [Route("api/email")]
     [ApiController]
     public class EmailController : ControllerBase
@@ -184,6 +186,7 @@ namespace api.Controllers
             return NoContent();
         }
 
+        [AllowAnonymous]
         [HttpPut]
         [Route("verifyEmail")]
         public async Task<IActionResult> VerifyEmail([FromBody] CheckEmailSecretCodeDTO updateVerifyDTO)
