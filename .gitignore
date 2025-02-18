@@ -6,3 +6,4 @@ api/obj/Debug/net8.0/api.assets.cache
 api/obj/Debug/net8.0/api.csproj.AssemblyReference.cache
 api/obj/Debug/net8.0/api.GeneratedMSBuildEditorConfig.editorconfig
 /api/.vs
+/api/obj
