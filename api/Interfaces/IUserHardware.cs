@@ -16,8 +16,10 @@ namespace api.Interfaces
                List<int>? typeIds,
                string? searchString,
                DateTime startDate,
-               DateTime endDate);         
-               Task<List<UserHardware>> GetUserHardwareByUserId(int userId);
+               DateTime endDate);
+        Task<List<UserHardware>> GetUserLoanHistoryAsync(int userId);
+        Task<List<UserHardware>> GetActiveLoansByUserAsync(int userId);
+
         Task<ReadUserHardwareDTO?> AddUserHardware(CreateUserHardwareDTO userHardware);
         Task<UserHardware?> UpdateUserHardware(int id, UpdateUserHardwareDTO userHardware);
         Task<bool> Exists(int UserHardwareId);

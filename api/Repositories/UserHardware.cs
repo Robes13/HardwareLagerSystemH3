@@ -140,10 +140,34 @@ public class UserHardwareRepository : IUserHardware
         return result;
     }
 
-    public Task<List<UserHardware>> GetUserHardwareByUserId(int userId)
+    public async Task<List<UserHardware>> GetUserLoanHistoryAsync(int userId)
     {
-        return _context.UserHardware.Where(uh => uh.userid == userId).ToListAsync();
+        return await _context.UserHardware
+            .Include(uh => uh.Hardware)
+                .ThenInclude(h => h.hardwarestatus)
+            .Include(uh => uh.Hardware)
+                .ThenInclude(h => h.type)
+            .Include(uh => uh.Hardware)
+                .ThenInclude(h => h.HardwareCategories)
+                    .ThenInclude(c => c.category)
+            .Where(uh => uh.userid == userId)
+            .ToListAsync();
     }
+
+    public async Task<List<UserHardware>> GetActiveLoansByUserAsync(int userId)
+    {
+        return await _context.UserHardware
+           .Include(uh => uh.Hardware)
+                .ThenInclude(h => h.hardwarestatus)
+            .Include(uh => uh.Hardware)
+                .ThenInclude(h => h.type)
+            .Include(uh => uh.Hardware)
+                .ThenInclude(h => h.HardwareCategories)
+                    .ThenInclude(c => c.category)
+            .Where(uh => uh.userid == userId && uh.isRented)
+            .ToListAsync();
+    }
+
 
     public async Task<UserHardware?> UpdateUserHardware(int id, UpdateUserHardwareDTO userHardware)
     {

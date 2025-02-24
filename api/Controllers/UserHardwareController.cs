@@ -85,22 +85,65 @@ namespace api.Controllers
             return Ok(availableHardware);
         }
 
-        // Get hardware by user id
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult<UserHardware>> GetByUserId(int id)
+        [HttpGet("GetUserLoanHistory/{id:int}")]
+        public async Task<ActionResult<List<HardwareReadDTO>>> GetLoanHistoryForUser(int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var userHardware = await _userHardware.GetUserHardwareByUserId(id);
-            if (userHardware == null)
-            {
-                return NotFound("Couldn't find any hardware for user");
-            }
-            return Ok(userHardware);
-        }
 
+            var userHardwareRecords = await _userHardware.GetUserLoanHistoryAsync(id);
+
+            if (userHardwareRecords == null || !userHardwareRecords.Any())
+            {
+                return Ok(new List<HardwareReadDTO>());
+            }
+
+            var hardwareDTOs = userHardwareRecords.Select(uh => new HardwareReadDTO
+            {
+                id = uh.Hardware.id,
+                name = uh.Hardware.name,
+                hardwarestatus = uh.Hardware.hardwarestatus?.name,
+                type = uh.Hardware.type?.name,
+                hardwarecategories = uh.Hardware.HardwareCategories?
+                    .Select(c => c.category.name)
+                    .Where(name => name != null)
+                    .ToList() ?? new List<string>(),
+                ImageUrl = uh.Hardware.ImageUrl
+            }).ToList();
+
+            // Reverse the list before returning it
+            hardwareDTOs.Reverse();
+
+            return Ok(hardwareDTOs);
+        }
+        [HttpGet("GetActiveLoansByUserId/{id:int}")]
+        public async Task<ActionResult<List<HardwareReadDTO>>> GetActiveLoansByUserId(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var activeLoans = await _userHardware.GetActiveLoansByUserAsync(id);
+            if (activeLoans == null ||!activeLoans.Any())
+            {
+                return Ok(new List<HardwareReadDTO>());
+            }
+            var hardwareDTOs = activeLoans.Select(uh => new HardwareReadDTO
+            {
+                id = uh.Hardware.id,
+                name = uh.Hardware.name,
+                hardwarestatus = uh.Hardware.hardwarestatus?.name,
+                type = uh.Hardware.type?.name,
+                hardwarecategories = uh.Hardware.HardwareCategories?
+                    .Select(c => c.category.name)
+                    .Where(name => name != null)
+                    .ToList() ?? new List<string>(),
+                ImageUrl = uh.Hardware.ImageUrl
+            }).ToList();
+            return Ok(hardwareDTOs);
+        }
         // Add a new hardware to a user
         [AllowAnonymous]
         [HttpPost]
