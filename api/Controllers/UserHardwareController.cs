@@ -9,6 +9,8 @@ using api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using api.DTOs.HardwareDTOs;
+using DTOs.HardwareDTOs;
 
 namespace api.Controllers
 {
@@ -20,11 +22,45 @@ namespace api.Controllers
         private readonly ApiDbContext _context;
         private readonly IUserHardware _userHardware;
 
+
         public UserHardwareController(ApiDbContext context, IUserHardware userHardware)
         {
             _context = context;
             _userHardware = userHardware;
         }
+        [AllowAnonymous]
+        [HttpGet("getAll")]
+        public async Task<ActionResult<List<HardwareReadDTO>>> GetAll()
+        {
+            try
+            {
+                // Get the ordered hardware list by frequency from the async method
+                var orderedHardwares = await _userHardware.GetAllAsync();
+
+                // Map the result to DTOs (Data Transfer Objects)
+                var hardwareDTOs = orderedHardwares.Select(hardwareModel => new HardwareReadDTO
+                {
+                    id = hardwareModel.id,
+                    name = hardwareModel.name,
+                    hardwarestatus = hardwareModel.hardwarestatus?.name,
+                    type = hardwareModel.type?.name,
+                    hardwarecategories = hardwareModel.HardwareCategories?
+                        .Select(c => c.category.name)
+                        .Where(name => name != null)
+                        .ToList() ?? new List<string>(),
+                    ImageUrl = hardwareModel.ImageUrl
+                }).ToList();
+
+                // Return the list of hardware as DTOs
+                return Ok(hardwareDTOs);
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions gracefully
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
 
         [AllowAnonymous]
         [HttpGet("available")]

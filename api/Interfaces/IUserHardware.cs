@@ -21,5 +21,6 @@ namespace api.Interfaces
         Task<ReadUserHardwareDTO?> AddUserHardware(CreateUserHardwareDTO userHardware);
         Task<UserHardware?> UpdateUserHardware(int id, UpdateUserHardwareDTO userHardware);
         Task<bool> Exists(int UserHardwareId);
+        Task<List<Hardware>> GetAllAsync();
     }
 }

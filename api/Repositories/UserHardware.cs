@@ -22,6 +22,34 @@ public class UserHardwareRepository : IUserHardware
         _context = context;
     }
 
+    public async Task<List<Hardware>> GetAllAsync()
+    {
+        // Get all the hardware assigned to users (UserHardware) from the database
+        List<UserHardware> userhardwares = await _context.UserHardware.ToListAsync();
+
+        // Count how many times each hardware is assigned (grouping by hardware id)
+        var hardwareCounts = userhardwares
+            .GroupBy(uh => uh.hardwareid)
+            .Select(group => new { HardwareId = group.Key, Count = group.Count() })
+            .OrderByDescending(x => x.Count)
+            .ToList();
+
+        // Fetch the corresponding hardware entries from the Hardware table with all details
+        var hardwaresToReturn = await _context.Hardware
+            .Include(h => h.hardwarestatus)
+            .Include(h => h.type)
+            .Include(h => h.HardwareCategories)
+                .ThenInclude(hc => hc.category)
+            .Where(h => hardwareCounts.Select(hc => hc.HardwareId).Contains(h.id))
+            .ToListAsync();
+
+        // Order the hardware list based on the frequency count
+        return hardwaresToReturn
+            .OrderByDescending(h => hardwareCounts.First(hc => hc.HardwareId == h.id).Count)
+            .ToList();
+    }
+
+
     public async Task<ReadUserHardwareDTO?> AddUserHardware(CreateUserHardwareDTO userHardware)
     {
         try
