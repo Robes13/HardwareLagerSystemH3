@@ -7,7 +7,9 @@ using api.DTOs.EmailDTOs;
 using api.DTOs.RoleDTOs;
 using api.DTOs.UserDTOs;
 using api.Interfaces;
+using api.Mappers;
 using api.Models;
+using CloudinaryDotNet.Core;
 using DTOs.UserDTOs;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Crypto.Engines;
@@ -97,7 +99,6 @@ namespace api.Repositories
             {
                 Id = user.id,
                 Username = user.username,
-                HashedPassword = user.hashedpassword,
                 Fullname = user.fullname,
                 IsDeleted = user.isdeleted,
                 RoleId = user.roleid,
@@ -128,7 +129,6 @@ namespace api.Repositories
             {
                 Id = user.id,
                 Username = user.username,
-                HashedPassword = user.hashedpassword,
                 Fullname = user.fullname,
                 IsDeleted = user.isdeleted,
                 RoleId = user.roleid,

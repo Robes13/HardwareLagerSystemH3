@@ -12,7 +12,6 @@ namespace DTOs.UserDTOs
     {
         public int Id { get; set; }
         public string Username { get; set; } = string.Empty;
-        public string HashedPassword { get; set; } = string.Empty;
         public string Fullname { get; set; } = string.Empty;
         public bool IsDeleted { get; set; }
         public int RoleId { get; set; }
