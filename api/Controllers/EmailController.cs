@@ -25,14 +25,16 @@ namespace api.Controllers
         private readonly EmailCodeGenerator _createSecretEmailKey;
         private readonly EmailCodeSender _emailCodeSender;
         private readonly IUser _user;
+        private readonly JwtTokenService _jwtTokenService; // Inject JwtTokenService
 
-        public EmailController(ApiDbContext context, IEmail email, EmailCodeGenerator createSecretEmailKey, EmailCodeSender emailCodeSender, IUser user)
+        public EmailController(ApiDbContext context, IEmail email, EmailCodeGenerator createSecretEmailKey, EmailCodeSender emailCodeSender, IUser user, JwtTokenService jwtTokenService)
         {
             _context = context;
             _email = email;
             _createSecretEmailKey = createSecretEmailKey;
             _emailCodeSender = emailCodeSender;
             _user = user;
+            _jwtTokenService = jwtTokenService; // Initialize JwtTokenService
         }
 
         [HttpGet("{id:int}")]
@@ -51,7 +53,7 @@ namespace api.Controllers
             }
             return Ok(email.ToEmailDTO());
         }
-
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> CreateEmail([FromBody] CreateEmailDTO createEmailDTO)
         {
@@ -71,14 +73,14 @@ namespace api.Controllers
             }
 
             emailBody = emailBody.Replace("{emailcode}", email.SecretKey);
-            // Step 5: Send the email with the HTML content as body
-            _emailCodeSender.SendEmail(email.EmailAddress, "Bekræft din E-Mail på ITDepot", emailBody, true);
 
-            // Step 6: Check if email already exists
+            // Send the verification email
+            await _emailCodeSender.SendEmail(email.EmailAddress, "Bekræft din E-Mail på ITDepot", emailBody, true);
+
+            // Try to create the email in the database
             try
             {
                 email.SecretKey = BCrypt.Net.BCrypt.HashPassword(email.SecretKey);
-                // Try to create the email in the database
                 await _email.CreateEmailAsync(email);
             }
             catch (InvalidOperationException ex)
@@ -87,7 +89,17 @@ namespace api.Controllers
                 return Conflict(ex.Message); // Return HTTP 409 Conflict with the error message
             }
 
-            return CreatedAtAction(nameof(GetById), new { id = email.Id }, email.ToEmailDTO());
+            // Generate JWT Token after successful email creation
+            var token = _jwtTokenService.GenerateToken(email.Id.ToString(), "User");
+
+            // Return the created email along with the token
+            var response = new
+            {
+                Email = email.ToEmailDTO(),
+                Token = token
+            };
+
+            return CreatedAtAction(nameof(GetById), new { id = email.Id }, response);
         }
 
         private async Task<string> ScrapeHtmlAndCss(string url)
