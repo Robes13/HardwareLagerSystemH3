@@ -21,5 +21,6 @@ namespace api.Models
         [Column(TypeName = "nvarchar(255)")]
         [MaxLength(255, ErrorMessage = "Message is longer than 255 characters")]
         public string message { get; set; } = string.Empty;
+        public DateTime timestamp { get; set; } = DateTime.UtcNow;
     }
 }

@@ -17,6 +17,7 @@ namespace Mappers
                 id = notificationModel.id,
                 userid = notificationModel.userid,
                 message = notificationModel.message,
+                timestamp = notificationModel.timestamp,
             };
         }
         public static Notification ToNotificationFromCreate(this NotificationCreateDTO notificationDto)

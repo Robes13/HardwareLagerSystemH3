@@ -10,5 +10,7 @@ namespace DTOs.NotificationDTOs
         public int id { get; set; }
         public int userid { get; set; }
         public string message { get; set; } = string.Empty;
+
+        public DateTime timestamp { get; set; }
     }
 }

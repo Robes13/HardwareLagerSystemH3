@@ -105,6 +105,7 @@ namespace api.Repositories
             existingHardware.name = hardwareDto.name;
             existingHardware.hardwarestatusid = hardwareDto.hardwarestatusid;
             existingHardware.typeid = hardwareDto.typeid;
+            existingHardware.Description = hardwareDto.Description;
 
             // If an image file is provided, upload to Cloudinary and update the ImageUrl
             if (imageFile != null)

@@ -9,6 +9,7 @@ namespace DTOs.HardwareDTOs
     public class HardwareCreateDTO
     {
         public string name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
         public string hardwarestatusid { get; set; }
         public string typeid { get; set; }
     }

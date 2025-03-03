@@ -12,5 +12,6 @@ namespace api.DTOs.HardwareDTOs
 
         public int hardwarestatusid { get; set; }
         public int typeid { get; set; }
+        public string Description { get; set; } = string.Empty;
     }
 }

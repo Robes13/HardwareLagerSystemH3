@@ -28,6 +28,11 @@ namespace api.Models
 
         public string? ImageUrl { get; set; }
 
+        [Required]
+        [Column(TypeName = "nvarchar(255)")]
+        [MaxLength(255, ErrorMessage = "Description is longer then 255 characters")]
+        public string Description { get; set; } = string.Empty;
+
         public List<HardwareCategory> HardwareCategories { get; set; } = new List<HardwareCategory>();
     }
 }

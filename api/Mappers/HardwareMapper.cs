@@ -15,6 +15,7 @@ namespace Mappers
             {
                 id = hardwareModel.id,
                 name = hardwareModel.name,
+                Description = hardwareModel.Description,
                 hardwarestatus = hardwareModel.hardwarestatus?.name,
                 type = hardwareModel.type?.name,
                 hardwarecategories = hardwareModel.HardwareCategories?
@@ -32,6 +33,7 @@ namespace Mappers
                 name = hardwareDto.name,
                 hardwarestatusid = Convert.ToInt32(hardwareDto.hardwarestatusid),
                 typeid = Convert.ToInt32(hardwareDto.typeid),
+                Description = hardwareDto.Description
             };
         }
     }

@@ -29,7 +29,7 @@ namespace api.Controllers
             _userHardware = userHardware;
         }
         [AllowAnonymous]
-        [HttpGet("getAll")]
+        [HttpGet("GetMostLoaned")]
         public async Task<ActionResult<List<HardwareReadDTO>>> GetAll()
         {
             try
@@ -42,6 +42,7 @@ namespace api.Controllers
                 {
                     id = hardwareModel.id,
                     name = hardwareModel.name,
+                    Description = hardwareModel.Description,
                     hardwarestatus = hardwareModel.hardwarestatus?.name,
                     type = hardwareModel.type?.name,
                     hardwarecategories = hardwareModel.HardwareCategories?
@@ -104,6 +105,7 @@ namespace api.Controllers
             {
                 id = uh.Hardware.id,
                 name = uh.Hardware.name,
+                Description = uh.Hardware.Description,
                 hardwarestatus = uh.Hardware.hardwarestatus?.name,
                 type = uh.Hardware.type?.name,
                 hardwarecategories = uh.Hardware.HardwareCategories?
@@ -126,7 +128,7 @@ namespace api.Controllers
                 return BadRequest(ModelState);
             }
             var activeLoans = await _userHardware.GetActiveLoansByUserAsync(id);
-            if (activeLoans == null ||!activeLoans.Any())
+            if (activeLoans == null || !activeLoans.Any())
             {
                 return Ok(new List<HardwareReadDTO>());
             }
@@ -134,6 +136,7 @@ namespace api.Controllers
             {
                 id = uh.Hardware.id,
                 name = uh.Hardware.name,
+                Description = uh.Hardware.Description,
                 hardwarestatus = uh.Hardware.hardwarestatus?.name,
                 type = uh.Hardware.type?.name,
                 hardwarecategories = uh.Hardware.HardwareCategories?

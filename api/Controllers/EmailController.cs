@@ -75,22 +75,25 @@ namespace api.Controllers
             emailBody = emailBody.Replace("{emailcode}", email.SecretKey);
 
             // Send the verification email
-            await _emailCodeSender.SendEmail(email.EmailAddress, "Bekræft din E-Mail på ITDepot", emailBody, true);
+            bool sentEmail = await _emailCodeSender.SendEmail(email.EmailAddress, "Bekræft din E-Mail på ITDepot", emailBody, true);
 
             // Try to create the email in the database
-            try
+            if (sentEmail)
             {
-                email.SecretKey = BCrypt.Net.BCrypt.HashPassword(email.SecretKey);
-                await _email.CreateEmailAsync(email);
+                try
+                {
+                    email.SecretKey = BCrypt.Net.BCrypt.HashPassword(email.SecretKey);
+                    await _email.CreateEmailAsync(email);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    // If email already exists, return a conflict response
+                    return Conflict(ex.Message); // Return HTTP 409 Conflict with the error message
+                }
             }
-            catch (InvalidOperationException ex)
-            {
-                // If email already exists, return a conflict response
-                return Conflict(ex.Message); // Return HTTP 409 Conflict with the error message
-            }
+            var token = _jwtTokenService.GenerateToken(email.Id.ToString(), "User");
 
             // Generate JWT Token after successful email creation
-            var token = _jwtTokenService.GenerateToken(email.Id.ToString(), "User");
 
             // Return the created email along with the token
             var response = new
