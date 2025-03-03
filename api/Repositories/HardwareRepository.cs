@@ -77,10 +77,21 @@ namespace api.Repositories
                 hardwares = hardwares.Where(c => c.typeid == query.typeid);
             }
 
-            var skipNumber = (query.PageNumber - 1) * query.PageSize;
+            // Sorting applied BEFORE pagination
+            if (query.IsDecsending)
+            {
+                hardwares = hardwares.OrderByDescending(h => h.id); // Ensure 'id' exists in your model
+            }
+            else
+            {
+                hardwares = hardwares.OrderBy(h => h.id);
+            }
 
+            // Pagination happens AFTER sorting
+            var skipNumber = (query.PageNumber - 1) * query.PageSize;
             return await hardwares.Skip(skipNumber).Take(query.PageSize).ToListAsync();
         }
+
 
         public async Task<Hardware?> GetByIdAsync(int id)
         {
