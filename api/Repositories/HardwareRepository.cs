@@ -67,12 +67,12 @@ namespace api.Repositories
                     .ThenInclude(hc => hc.category)
                 .AsQueryable();
 
-            if (query.hardwarestatusid >= 0)
+            if (query.hardwarestatusid > 0)
             {
                 hardwares = hardwares.Where(c => c.hardwarestatusid == query.hardwarestatusid);
             }
 
-            if (query.typeid >= 0)
+            if (query.typeid > 0)
             {
                 hardwares = hardwares.Where(c => c.typeid == query.typeid);
             }
