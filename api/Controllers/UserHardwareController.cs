@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using api.DTOs.HardwareDTOs;
 using DTOs.HardwareDTOs;
+using System.Security.Claims;
 
 namespace api.Controllers
 {
@@ -28,6 +29,34 @@ namespace api.Controllers
             _context = context;
             _userHardware = userHardware;
         }
+
+        [Authorize] // Require authentication
+        [HttpGet("ScanUserHardware/{hardwareId:int}")]
+        public async Task<ActionResult<ScanUserHardwareDTO?>> ScanUserHardware(int hardwareId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // Extract userId from the JWT token
+            var userIdClaim = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+            {
+                return Unauthorized("User ID not found in token.");
+            }
+
+            var scannedHardware = await _userHardware.ScannedHardwareViaHardwareId(hardwareId, userId);
+
+            if (scannedHardware == null)
+            {
+                return NotFound("No rented hardware found for the given ID.");
+            }
+
+            return Ok(scannedHardware);
+        }
+
         [AllowAnonymous]
         [HttpGet("GetMostLoaned")]
         public async Task<ActionResult<List<HardwareReadDTO>>> GetAll()

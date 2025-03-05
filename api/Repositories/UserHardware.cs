@@ -186,4 +186,58 @@ public class UserHardwareRepository : IUserHardware
         await _context.SaveChangesAsync();
         return existingUserHardware;
     }
+
+    public async Task<ScanUserHardwareDTO?> ScannedHardwareViaHardwareId(int hardwareId, int userId)
+    {
+        string hardwareNameToGive = string.Empty;
+        string hardwareDescriptionToGive = string.Empty;
+        string hardwareStatusToGive = string.Empty;
+        string hardwareTypeToGive = string.Empty;
+        List<string> hardwareCategoryToGive = new List<string>();
+        bool isUserRenterToGive = false;
+        bool isHardwareAvailableToGive = false;
+
+        var userHardware = await _context.UserHardware
+            .FirstOrDefaultAsync(uh => uh.hardwareid == hardwareId && uh.userid == userId && uh.isRented);
+
+        if (userHardware != null)
+        {
+            isUserRenterToGive = true;
+        }
+
+        var ishardwareavailable = await _context.UserHardware
+            .FirstOrDefaultAsync(uh => uh.hardwareid == hardwareId && uh.isRented);
+
+        if (ishardwareavailable == null)
+        {
+            isHardwareAvailableToGive = true;
+        }
+
+        Hardware? hardware = await _context.Hardware
+            .Include(h => h.hardwarestatus)
+            .Include(h => h.type)
+            .Include(h => h.HardwareCategories)
+            .ThenInclude(hc => hc.category)
+            .FirstOrDefaultAsync(uh => uh.id == hardwareId);
+
+        if (hardware != null)
+        {
+            hardwareNameToGive = hardware.name;
+            hardwareDescriptionToGive = hardware.Description;
+            hardwareStatusToGive = hardware.hardwarestatus?.name ?? "Unknown";
+            hardwareTypeToGive = hardware.type?.name ?? "Unknown";
+            hardwareCategoryToGive = hardware.HardwareCategories.Select(hc => hc.category.name).ToList();
+        }
+
+        return new ScanUserHardwareDTO
+        {
+            hardwareName = hardwareNameToGive,
+            hardwareDescription = hardwareDescriptionToGive,
+            hardwareStatus = hardwareStatusToGive,
+            hardwareType = hardwareTypeToGive,
+            hardwareCategory = hardwareCategoryToGive,
+            isUserRenter = isUserRenterToGive,
+            isHardwareAvailable = isHardwareAvailableToGive,
+        };
+    }
 }

@@ -168,10 +168,10 @@ namespace api.Controllers
             return Ok(new
             {
                 message = "Login successful!",
-                token = token
+                token = token,
+                user.fullname,
+                user.id
             });
         }
-
-
     }
 }
