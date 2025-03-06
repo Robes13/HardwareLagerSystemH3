@@ -133,17 +133,31 @@ namespace api.Controllers
                 return NotFound($"User with id: {id} not found");
             }
 
-            // Validate if the roleid exists in the Role table before updating
-            var roleExists = await _context.Role.AnyAsync(r => r.id == userDto.roleid);
-            if (!roleExists)
+            if (userDto.roleid!= null)
             {
-                return BadRequest($"Role with id {userDto.roleid} does not exist.");
+                // Validate if the roleid exists in the Role table before updating
+                var roleExists = await _context.Role.AnyAsync(r => r.id == userDto.roleid);
+                if (!roleExists)
+                {
+                    return BadRequest($"Role with id {userDto.roleid} does not exist.");
+                }
             }
-
-            user.username = userDto.username;
-            user.hashedpassword = userDto.hashedpassword;
-            user.roleid = userDto.roleid;
-
+            if(userDto.fullname != null)
+            {
+                user.fullname = userDto.fullname;
+            }
+            if(userDto.username!= null)
+            {
+                user.username = userDto.username;
+            }
+            if(userDto.hashedpassword!= null)
+            {
+                user.hashedpassword = userDto.hashedpassword;
+            }
+            if(userDto.roleid!= null)
+            {
+                user.roleid = Convert.ToInt32(userDto.roleid);
+            }
             await _context.SaveChangesAsync();
             return Ok($"User with id: {id} updated successfully");
         }

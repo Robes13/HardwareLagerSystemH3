@@ -13,6 +13,6 @@ namespace DTOs.UserDTOs
         public string username { get; set; } = string.Empty;
         public string hashedpassword { get; set; } = string.Empty;
         public string fullname { get; set; } = string.Empty;
-        public int roleid { get; set; }
+        public int? roleid { get; set; }
     }
 }
