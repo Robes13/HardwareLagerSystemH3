@@ -133,33 +133,10 @@ namespace api.Controllers
                 return NotFound($"User with id: {id} not found");
             }
 
-            // Update fields only if they are provided in the request
-            if (userDto.username != null)
-            {
-                user.username = userDto.username;
-            }
-            if (userDto.fullname != null)
-            {
-                user.fullname = userDto.fullname;
-            }
-            if (userDto.hashedpassword != null)
-            {
-                user.hashedpassword = userDto.hashedpassword;
-            }
-            if (userDto.roleid.HasValue)
-            {
-                // Validate if the roleid exists in the Role table before updating
-                var roleExists = await _context.Role.AnyAsync(r => r.id == userDto.roleid.Value);
-                if (!roleExists)
-                {
-                    return BadRequest($"Role with id {userDto.roleid} does not exist.");
-                }
-                user.roleid = userDto.roleid.Value;
-            }
-
-            await _context.SaveChangesAsync();
+            await _iuser.UpdateAsync(user.id, userDto);
             return Ok($"User with id: {id} updated successfully");
         }
+
 
 
         [AllowAnonymous]

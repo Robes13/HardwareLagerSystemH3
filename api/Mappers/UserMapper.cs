@@ -27,9 +27,7 @@ namespace Mappers
             return new User
             {
                 username = user.username,
-                hashedpassword = user.hashedpassword,
                 fullname = user.fullname,
-                roleid = user.roleid,
             };
         }
     }

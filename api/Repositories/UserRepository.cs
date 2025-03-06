@@ -153,16 +153,8 @@ namespace api.Repositories
                 return null;
             }
 
-            var roleExists = await _context.Role.AnyAsync(asasa => asasa.id == user.roleid);
-            if (!roleExists)
-            {
-                return null;
-            }
-
             userModel.username = user.username;
             userModel.fullname = user.fullname;
-            userModel.hashedpassword = user.hashedpassword;
-            userModel.roleid = user.roleid;
 
             await _context.SaveChangesAsync();
 
