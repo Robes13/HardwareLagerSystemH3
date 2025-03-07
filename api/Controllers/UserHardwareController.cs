@@ -226,5 +226,44 @@ namespace api.Controllers
             bool exists = await _userHardware.Exists(id);
             return Ok(exists);
         }
+
+        [HttpGet("GetDeliveredLoansByUserId")]
+        public async Task<ActionResult<List<HardwareReadDTO>>> GetDeliveredLoansByUserId()
+        {
+            
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userIdClaim = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int id))
+            {
+                return Unauthorized("User ID not found in token.");
+            }
+
+            var deliveredLoans = await _userHardware.GetUserLoanHistoryAsync(id);
+            if (deliveredLoans == null || !deliveredLoans.Any())
+            {
+                return Ok(new List<HardwareReadDTO>());
+            }
+            var hardwareDTOs = deliveredLoans
+                .Where(uh => uh.isRented == false && uh.deliveryDate != null)
+                .Select(uh => new HardwareReadDTO
+                {
+                    id = uh.Hardware.id,
+                    name = uh.Hardware.name,
+                    Description = uh.Hardware.Description,
+                    hardwarestatus = uh.Hardware.hardwarestatus?.name,
+                    type = uh.Hardware.type?.name,
+                    hardwarecategories = uh.Hardware.HardwareCategories?
+                        .Select(c => c.category.name)
+                        .Where(name => name != null)
+                        .ToList() ?? new List<string>(),
+                    ImageUrl = uh.Hardware.ImageUrl
+                }).ToList();
+            return Ok(hardwareDTOs);
+        }
     }
 }
